@@ -8,6 +8,7 @@ export default function Home() {
         <div className="App">
             <Navbar />
             <header className="App-header">
+                <img src="akwarium_background.png" alt="background" style={{width: "100%", height: "auto"}}/>
                 <img src="akwarium_logo.png" alt="logo"/>
                 <img src={logo} className="App-logo" alt="logo" />
                 <Button>Test Button</Button>
