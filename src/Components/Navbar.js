@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';      
+import Button from 'react-bootstrap/Button'; 
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../App.css";
 
@@ -11,14 +12,15 @@ function Navbar() {
             <a>AKWARIUM+</a>
         </div>
         <div className="NavLinks">
-            <a>Strona Główna</a>
-            <a>Wyposażenie</a>
-            <a>Ryby</a>
+            <a href="/">Strona Główna</a>
+            <a href="/wyposazenie">Wyposażenie</a>
+            <a href="/ryby">Ryby</a>
         </div>
         <div className="NavSigning">
-            <a>Zaloguj</a>
-            <Button className="SignUpButton">Dołącz</Button>
-
+            <a href="/logowanie">Zaloguj</a>
+            <a href="/rejestracja">
+              <Button className="SignUpButton">Dołącz</Button>
+            </a>
         </div>
     </div>
   )
