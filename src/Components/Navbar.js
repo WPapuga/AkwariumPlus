@@ -8,7 +8,7 @@ function Navbar() {
     <div className="Navbar">
         <div className="NavLeftSide">
             <img src="akwarium_logo.png" alt="logo"/>
-            <a>Akwarium+</a>
+            <a>AKWARIUM+</a>
         </div>
         <div className="NavLinks">
             <a>Strona Główna</a>

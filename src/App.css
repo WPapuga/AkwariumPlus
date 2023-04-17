@@ -46,20 +46,25 @@
 }
 
 .Navbar .NavLeftSide {
-  flex: 15%;
+  flex: 20%;
   /* background-color: black; */
   display: flex;
   max-height: 80px;
   align-items: center;
+  color: #2F327D;
 }
-.Navbar .NavLeftSide a{
+.Navbar .NavLeftSide a {
+  text-decoration: none;
   font-size: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+.Navbar .NavLeftSide img {
   margin-left: 15px;
 }
 
-
 .Navbar .NavLinks {
-  flex: 60%;
+  flex: 55%;
   /* background-color: blue; */
   max-height: 80px;
   display: flex;
@@ -76,7 +81,7 @@
   flex: 25%;
   /* background-color: red; */
   display: flex;
-  justify-content: left;
+  justify-content: right;
   align-items: center;
 }
 .Navbar .NavSigning a {
@@ -86,4 +91,6 @@
 }
 .Navbar .NavSigning .SignUpButton {
   margin-left: 15px;
+  margin-right: 50px;
+  font-size: 23px;
 }
