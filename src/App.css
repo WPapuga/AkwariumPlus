@@ -96,3 +96,7 @@
   border-color: #30CB70;
   color: #30CB70;
 }
+
+.Navbar .active a {
+  color: #30CB70;
+}

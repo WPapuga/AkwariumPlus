@@ -11,26 +11,6 @@ import { Route, Routes } from "react-router-dom";
 
 
 function App() {
-  // let Component;
-  // switch (window.location.pathname) {
-  //   case "/":
-  //     Component = Home;
-  //     break;
-  //   case "/wyposazenie":
-  //     Component = Equipment;
-  //     break;
-  //   case "/ryby":
-  //     Component = Fishes;
-  //     break;
-  //   case "/logowanie":
-  //     Component = SignIn;
-  //     break;
-  //   case "/rejestracja":
-  //     Component = SignUp;
-  //     break;
-  //   default:
-  //     Component = App;
-  // }
   return (
     <>
       <Navbar />

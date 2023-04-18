@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 
 function Navbar() {
@@ -13,16 +13,26 @@ function Navbar() {
             <Link>AKWARIUM+</Link>
         </div>
         <div className="NavLinks">
-            <Link to="/">Strona Główna</Link>
-            <Link to="/wyposazenie">Wyposażenie</Link>
-            <Link to="/ryby">Ryby</Link>
+            <CustomLink to="/">Strona Główna</CustomLink>
+            <CustomLink to="/wyposazenie">Wyposażenie</CustomLink>
+            <CustomLink to="/ryby">Ryby</CustomLink>
         </div>
         <div className="NavSigning">
-            <Link to="/logowanie">Zaloguj</Link>
+            <CustomLink to="/logowanie">Zaloguj</CustomLink>
             <Link to="/rejestracja">
               <Button className="SignUpButton">Dołącz</Button>
             </Link>
         </div>
+    </div>
+  )
+}
+
+function CustomLink({ to, children, ...props }) {
+  const resolvedPath = useResolvedPath(to);
+  const isActive = useMatch({ path: resolvedPath.pathname, end: true });
+  return (
+    <div className={isActive ? "active" : ""}>
+          <Link to={to} {...props}>{children}</Link>
     </div>
   )
 }
