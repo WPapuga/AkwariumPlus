@@ -11,6 +11,9 @@ export default function Home() {
                 <img src={logo} className="App-logo" alt="logo" />
                 <Button>Test Button</Button>
             </header>
+            <body className="App-body">
+
+            </body>
         </div>
     );
 }
