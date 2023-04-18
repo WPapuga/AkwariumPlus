@@ -1,26 +1,27 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'; 
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../App.css";
+import { Link } from "react-router-dom";
+
 
 function Navbar() {
   return (
     <div className="Navbar">
         <div className="NavLeftSide">
             <img src="akwarium_logo.png" alt="logo"/>
-            <a>AKWARIUM+</a>
+            <Link>AKWARIUM+</Link>
         </div>
         <div className="NavLinks">
-            <a href="/">Strona Główna</a>
-            <a href="/wyposazenie">Wyposażenie</a>
-            <a href="/ryby">Ryby</a>
+            <Link to="/">Strona Główna</Link>
+            <Link to="/wyposazenie">Wyposażenie</Link>
+            <Link to="/ryby">Ryby</Link>
         </div>
         <div className="NavSigning">
-            <a href="/logowanie">Zaloguj</a>
-            <a href="/rejestracja">
+            <Link to="/logowanie">Zaloguj</Link>
+            <Link to="/rejestracja">
               <Button className="SignUpButton">Dołącz</Button>
-            </a>
+            </Link>
         </div>
     </div>
   )
