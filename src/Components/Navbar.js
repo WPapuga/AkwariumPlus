@@ -4,10 +4,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Navbar.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
-
-function Navbar() {
-  return (
-    <div className="Navbar">
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+        return (<div className="Navbar">
+            <div className="NavLeftSide">
+                <img src="akwarium_logo.png" alt="logo"/>
+                <Link>AKWARIUM+</Link>
+            </div>
+            <div className="NavLinks">
+                <CustomLink to="/">Strona Główna</CustomLink>
+                <CustomLink to="/wyposazenie">Wyposażenie</CustomLink>
+                <CustomLink to="/ryby">Ryby</CustomLink>
+                <CustomLink to="/konto">Moje Akwaria</CustomLink>
+            </div>
+            <div className="NavSigning">
+                <CustomLink to="/logowanie">Wyloguj</CustomLink>
+            </div>
+        </div>);
+    }
+    return ( <div className="Navbar">
         <div className="NavLeftSide">
             <img src="akwarium_logo.png" alt="logo"/>
             <Link>AKWARIUM+</Link>
@@ -20,10 +36,15 @@ function Navbar() {
         <div className="NavSigning">
             <CustomLink to="/logowanie">Zaloguj</CustomLink>
             <Link to="/rejestracja">
-              <Button className="SignUpButton">Dołącz</Button>
+                <Button className="SignUpButton">Dołącz</Button>
             </Link>
         </div>
-    </div>
+    </div>);
+}
+
+function Navbar() {
+  return (
+    <Greeting isLoggedIn={true} />
   )
 }
 
