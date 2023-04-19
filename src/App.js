@@ -6,11 +6,12 @@ import Equipment from './pages/Equipment';
 import Fishes from './pages/Fishes';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Footer from "./Components/Footer";
 import { Route, Routes } from "react-router-dom";
 
 
-
 function App() {
+
   return (
     <>
       <Navbar />
@@ -21,6 +22,7 @@ function App() {
         <Route path="/logowanie" element={ <SignIn/> } />
         <Route path="/rejestracja" element={ <SignUp/> } />
       </Routes>
+        <Footer />
     </>
   );
 }
