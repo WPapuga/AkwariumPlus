@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../App.css";
+import "./Navbar.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 
