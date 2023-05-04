@@ -1,6 +1,7 @@
+import '../pages/Home.css';
 export default function BenefitsDescription(){
     return (
-<div class="row text-center p-3">
+<div class="row text-center p-3 width-100">
       <h1 class="mb-4">Co oferuje nasza strona?</h1>
       <div class="col-lg-4 container ">
         <img src="images/free-access.png" alt="Free" class="mb-3" width="140" height="140"/>
