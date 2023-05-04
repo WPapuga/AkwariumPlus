@@ -39,10 +39,9 @@
   }
   
   .Navbar .NavSigning {
-    flex: 25%;
     display: flex;
-    justify-content: right;
     align-items: center;
+    margin-right: 3%;
   }
   .Navbar .NavSigning a {
     text-decoration: none;

@@ -18,7 +18,7 @@ function Greeting(props) {
                 <CustomLink to="/ryby">Ryby</CustomLink>
                 <CustomLink to="/konto">Moje Akwaria</CustomLink>
             </div>
-            <div className="NavSigning mr-4">
+            <div className="NavSigning ">
                 <CustomLink to="/logowanie">Wyloguj</CustomLink>
             </div>
         </div>);

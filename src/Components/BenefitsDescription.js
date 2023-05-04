@@ -10,7 +10,7 @@ export default function BenefitsDescription(){
       </div>
       <div class="col-lg-4">
         <img src="images/fish-tank.png" alt="Free" class="mb-3" width="140" height="140"/>
-        <h2 class="fw-normal mb-3">Zarzadaj swoim akwarium</h2>
+        <h2 class="fw-normal mb-3">Zarzadzaj swoim akwarium</h2>
         <p>Bedziesz w stanie dowolnie zarzadzac swoim akwarium.</p>
       </div>
       <div class="col-lg-4">
