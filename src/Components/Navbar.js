@@ -9,7 +9,7 @@ function Greeting(props) {
     if (isLoggedIn) {
         return (<div className="Navbar">
             <div className="NavLeftSide">
-                <img src="akwarium_logo.png" alt="logo"/>
+                <img src="images/akwarium_logo.png" alt="logo"/>
                 <Link>AKWARIUM+</Link>
             </div>
             <div className="NavLinks">
@@ -25,7 +25,7 @@ function Greeting(props) {
     }
     return ( <div className="Navbar">
         <div className="NavLeftSide">
-            <img src="akwarium_logo.png" alt="logo"/>
+            <img src="images/akwarium_logo.png" alt="logo"/>
             <Link>AKWARIUM+</Link>
         </div>
         <div className="NavLinks">
