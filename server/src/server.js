@@ -47,9 +47,22 @@ app.post('/login', (req, res) => {
             res.send({message: 'Błąd połączenia'});
         }
         else {
-            console.log(response);
             if(response.rows.length == 1) res.send({message: 'Sukces'});
             else res.send({message: 'Zła kombinacja email/hasło'});
+        }
+    })
+});
+
+app.post('/register', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    client.query(`INSERT INTO users(email, password) VALUES ('${email}', '${password}')`, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Użytkownik o poadnym e-mailu już istnieje'});
+        }
+        else {
+            res.send({message: 'Sukces'});
         }
     })
 });
