@@ -7,19 +7,19 @@ require('dotenv').config()
 const app = express()
 const port = 3030
 const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env
-const client = new pg.Client({
+const credentialsDB = {
     user: PGUSER,
     host: PGHOST,
     database: PGDATABASE,
     password: PGPASSWORD,
     port: process.env.PGPORT,
     ssl: true
-})
-client.connect();
+}
+const pool = new pg.Pool(credentialsDB)
 
 const testDB = async () => {
     try {
-        const res = await client.query('SELECT * FROM users')
+        const res = await pool.query('SELECT * FROM users')
         console.log(res)
     } catch (error) {
         console.log(error)
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    client.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`, (err, response) => {
+    pool.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Błąd połączenia'});
@@ -56,7 +56,7 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    client.query(`INSERT INTO users(email, password) VALUES ('${email}', '${password}')`, (err, response) => {
+    pool.query(`INSERT INTO users(email, password) VALUES ('${email}', '${password}')`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Użytkownik o poadnym e-mailu już istnieje'});
@@ -95,6 +95,18 @@ app.get('/getFish', (req, res) => {
             description: "gatunek słodkowodnej ryby sumokształtnej z rodziny Pangasiidae, poławiany gospodarczo i hodowany w celach konsumpcyjnych, pomimo dużych rozmiarów jest często spotykany jako ryba akwariowa."
         }
     ]);
+});
+
+app.get('/getFishDetails', (req, res) => {
+    console.log("Ryby");
+    res.send(
+        { 
+            id: 1, 
+            name: "Bystrzyk pięknopłetwy",
+            image: "Bystrzyk_pięknopłetwy.jpg",
+            description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
+        }
+    );
 });
 
 app.listen(port, () => {
