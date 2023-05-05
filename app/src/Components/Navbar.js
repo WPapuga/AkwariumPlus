@@ -6,24 +6,8 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 function Greeting(props) {
     const isLoggedIn = props.isLoggedIn;
-    if (isLoggedIn) {
-        return (<div className="Navbar">
-            <div className="NavLeftSide">
-                <img src="images/akwarium_logo.png" alt="logo"/>
-                <Link>AKWARIUM+</Link>
-            </div>
-            <div className="NavLinks">
-                <CustomLink to="/">Strona Główna</CustomLink>
-                <CustomLink to="/wyposazenie">Wyposażenie</CustomLink>
-                <CustomLink to="/ryby">Ryby</CustomLink>
-                <CustomLink to="/konto">Moje Akwaria</CustomLink>
-            </div>
-            <div className="NavSigning ">
-                <CustomLink to="/logowanie">Wyloguj</CustomLink>
-            </div>
-        </div>);
-    }
-    return ( <div className="Navbar">
+    return ( 
+        <div className="Navbar">
         <div className="NavLeftSide">
             <img src="images/akwarium_logo.png" alt="logo"/>
             <Link>AKWARIUM+</Link>
@@ -32,14 +16,22 @@ function Greeting(props) {
             <CustomLink to="/">Strona Główna</CustomLink>
             <CustomLink to="/wyposazenie">Wyposażenie</CustomLink>
             <CustomLink to="/ryby">Ryby</CustomLink>
+            {isLoggedIn ? <CustomLink to="/konto">Moje Akwaria</CustomLink> : <div></div>}
         </div>
         <div className="NavSigning">
-            <CustomLink to="/logowanie">Zaloguj</CustomLink>
-            <Link to="/rejestracja">
-                <Button className="SignUpButton">Dołącz</Button>
-            </Link>
+            {isLoggedIn ? 
+                <CustomLink to="/wylogowanie">Wyloguj</CustomLink>
+                :
+                <>
+                <CustomLink to="/logowanie">Zaloguj</CustomLink>
+                <Link to="/rejestracja">
+                    <Button className="SignUpButton">Dołącz</Button>
+                </Link>
+                </>
+            }
         </div>
-    </div>);
+        </div>
+    );
 }
 
 function Navbar() {
