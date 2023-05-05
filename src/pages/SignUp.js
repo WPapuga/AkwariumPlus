@@ -5,11 +5,9 @@ import Form from 'react-bootstrap/Form';
 export default function SignUp() {
     return (
         <div className="App">
-            <header className="App-header">
+            <body className="App-body">
                 <img className="UserImg"src="user_icon.svg" alt="logo" />
                 <p>Rejestracja</p>
-            </header>
-            <body className="App-body">
                 <Form>
                     <Form.Group>
                         <Form.Label>Email</Form.Label>
