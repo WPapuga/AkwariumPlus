@@ -7,6 +7,7 @@ import Fishes from './pages/Fishes';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import LogOut from './pages/LogOut';
+import Account from './pages/Account';
 import Footer from "./Components/Footer";
 import { Route, Routes } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={ <Home/> } />
         <Route path="/wyposazenie" element={ <Equipment/> } />
         <Route path="/ryby" element={ <Fishes/> } />
+        <Route path="/konto" element={ <Account/> } />
         <Route path="/logowanie" element={ <SignIn/> } />
         <Route path="/rejestracja" element={ <SignUp/> } />
         <Route path="/wylogowanie" element={ <LogOut/> } />
