@@ -1,0 +1,18 @@
+.FishContainer {
+    display: flex; 
+    padding: 100px 100px 100px 100px;
+}
+
+.Fish {
+    flex: 33%;
+}
+
+.FishImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.FishName {
+    padding-top: 50px;
+}
