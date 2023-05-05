@@ -98,15 +98,48 @@ app.get('/getFish', (req, res) => {
 });
 
 app.get('/getFishDetails', (req, res) => {
-    console.log("Ryby");
-    res.send(
-        { 
-            id: 1, 
-            name: "Bystrzyk pięknopłetwy",
-            image: "Bystrzyk_pięknopłetwy.jpg",
-            description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
-        }
-    );
+    const id = req.query.id;
+    if (id == 1) {
+        res.send(
+            { 
+                id: 1, 
+                name: "Bystrzyk pięknopłetwy",
+                image: "Bystrzyk_pięknopłetwy.jpg",
+                description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
+            }
+        );
+    }
+    if (id == 2) {
+        res.send(
+            { 
+                id: 2, 
+                name: "Danio Kerra",
+                image: "Danio_Kerra.jpg",
+                description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
+            }
+        );
+    }
+    if (id == 3) {
+        res.send(
+            { 
+                id: 3, 
+                name: "Bystrzyk czarny",
+                image: "Bystrzyk_czarny.jpg",
+                description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
+            }
+        );
+    }
+    if (id == 4) {
+        res.send(
+            { 
+                id: 4, 
+                name: "Sum rekini",
+                image: "Sum_rekini.jpg",
+                description: "gatunek słodkowodnej ryby sumokształtnej z rodziny Pangasiidae, poławiany gospodarczo i hodowany w celach konsumpcyjnych, pomimo dużych rozmiarów jest często spotykany jako ryba akwariowa."
+            }
+        );
+    }
+    
 });
 
 app.listen(port, () => {
