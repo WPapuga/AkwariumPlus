@@ -68,5 +68,5 @@ app.post('/register', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`api listening on port ${port}`)
+    console.log(`Server listening on port ${port}`)
 })
