@@ -1,5 +1,6 @@
 import React from 'react'
 import './FishList.css'
+import { Link } from 'react-router-dom'
 
 function FishList({ fish, loading }) {
   if(loading){
@@ -9,7 +10,7 @@ function FishList({ fish, loading }) {
     <div className="FishContainer">
         {fish.map((item) => (
             <div className='Fish' key={item.id}>
-                <img className='FishImage' src={`images/${item.image}`}></img>
+                <Link to={`/szczegolyRyby?id=${item.id}`}><img className='FishImage' src={`images/${item.image}`}></img></Link>
                 <h3 className='FishName'>{item.name}</h3>
             </div>
         ))}
