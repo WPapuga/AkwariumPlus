@@ -10,7 +10,7 @@ function Greeting(props) {
         <div className="Navbar">
         <div className="NavLeftSide">
             <img src="images/akwarium_logo.png" alt="logo"/>
-            <Link>AKWARIUM+</Link>
+            <Link to="/">AKWARIUM+</Link>
         </div>
         <div className="NavLinks">
             <CustomLink to="/">Strona Główna</CustomLink>
@@ -24,9 +24,9 @@ function Greeting(props) {
                 :
                 <>
                 <CustomLink to="/logowanie">Zaloguj</CustomLink>
-                <Link to="/rejestracja">
+                <CustomLink to="/rejestracja">
                     <Button className="SignUpButton">Dołącz</Button>
-                </Link>
+                </CustomLink>
                 </>
             }
         </div>
