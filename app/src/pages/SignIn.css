@@ -1,0 +1,17 @@
+.LoginStatus {
+    color: red;
+}
+
+.SubmitButton {
+    font-size: 23px;
+    background-color: white;
+    border-color: #2F327D;
+    color: #2F327D;
+}
+
+.SubmitButton:hover {
+    font-size: 23px;
+    background-color: #30CB70;
+    border-color: #30CB70;
+    color: white;
+}

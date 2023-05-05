@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './SignIn.css'
 
 
 async function login(credentials) {
@@ -54,7 +55,7 @@ export default function SignIn() {
                         Zaloguj się
                     </Button>
                 </Form>
-                <p>{loginStatus}</p>
+                <p className='LoginStatus'>{loginStatus}</p>
             </body>
         </div>
     );
