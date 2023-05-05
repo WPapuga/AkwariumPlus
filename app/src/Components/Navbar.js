@@ -16,10 +16,10 @@ function Greeting(props) {
             <CustomLink to="/">Strona Główna</CustomLink>
             <CustomLink to="/wyposazenie">Wyposażenie</CustomLink>
             <CustomLink to="/ryby">Ryby</CustomLink>
-            {isLoggedIn ? <CustomLink to="/konto">Moje Akwaria</CustomLink> : <div></div>}
+            {sessionStorage.getItem('isLogged') == "true" ? <CustomLink to="/konto">Moje Akwaria</CustomLink> : <div></div>}
         </div>
         <div className="NavSigning">
-            {isLoggedIn ? 
+            {sessionStorage.getItem('isLogged') == "true" ? 
                 <CustomLink to="/wylogowanie">Wyloguj</CustomLink>
                 :
                 <>

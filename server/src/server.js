@@ -41,14 +41,14 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    client.query(`SELECT * FROM users WHERE email = ${email} AND password = ${password}`, (err, res) => {
+    client.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Błąd połączenia'});
         }
         else {
-            console.log(res);
-            if(res.rows.length == 1) res.send({message: 'Sukces'});
+            console.log(response);
+            if(response.rows.length == 1) res.send({message: 'Sukces'});
             else res.send({message: 'Zła kombinacja email/hasło'});
         }
     })
