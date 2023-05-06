@@ -142,6 +142,65 @@ app.get('/getFishDetails', (req, res) => {
     
 });
 
+app.get('/getFishTank', (req, res) => {
+    console.log("Akwaria");
+    res.send([
+        { 
+            id: 1, 
+            name: "Akwarium 1"
+        },
+        { 
+            id: 2, 
+            name: "Akwarium 2"
+        },
+        { 
+            id: 3, 
+            name: "Akwarium 3"
+        },
+        { 
+            id: 4, 
+            name: "Akwarium 4"
+        }
+    ]);
+});
+
+app.get('/getFishTankDetails', (req, res) => {
+    const id = req.query.id;
+    if (id == 1) {
+        res.send(
+            { 
+                id: 1, 
+                name: "Akwarium 1"
+            }
+        );
+    }
+    if (id == 2) {
+        res.send(
+            { 
+                id: 2, 
+                name: "Akwarium 2"
+            }
+        );
+    }
+    if (id == 3) {
+        res.send(
+            { 
+                id: 3, 
+                name: "Akwarium 3"
+            }
+        );
+    }
+    if (id == 4) {
+        res.send(
+            { 
+                id: 4, 
+                name: "Akwarium 4"
+            }
+        );
+    }
+    
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })
