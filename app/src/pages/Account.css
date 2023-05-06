@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+}
+
+.ButtonContainer {
+    text-align: center;
+    align-items: center;
+}
+
+.ButtonContainer button {
+    border-style: none;
+    background-color: #0A142F;
+    margin: 50px 50px 50px 50px;
+    padding: 15px 30px 15px 30px;
+    text-decoration: none;
+    color: white;
+    border-radius: 25px;
+    font-size: 22px;
+    width: 500px;
+    height: 80px;
+}
+
+.ButtonContainer button:hover {
+    color: white;
+    border-color: #30CB70;
+    background-color: #30CB70;
+}
+
+.FishTankListContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.FishTank {
+    border-style: solid;
+    border-radius: 25px;
+    display: flex;
+    flex: 100%;
+    align-items: center;
+    min-width: 1000px;
+    min-height: 100px;
+    margin: 15px 0 15px 0;
+}
+
+.FishTank h3 {
+    color:black
+}
+
+.FishTankNameContainer {
+    display: flex;
+    flex: 50%;
+    justify-content: center;
+}
+
+.FishTankButtonContainer {
+    display: flex;
+    flex: 50%;
+    justify-content: right;
+}
+
+.FishTank button {
+    border-style: none;
+    background-color: #0A142F;
+    text-decoration: none;
+    color: white;
+    border-radius: 25px;
+    font-size: 22px;
+    width: 250px;
+    height: 100px;
+}
+
+.FishTank button:hover {
+    color: white;
+    border-color: #30CB70;
+    background-color: #30CB70;
+}
