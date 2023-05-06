@@ -10,6 +10,8 @@ import LogOut from './pages/LogOut';
 import Account from './pages/Account';
 import FishDetails from './pages/FishDetails';
 import Footer from "./Components/Footer";
+import FishTankDetails from "./pages/FishTankDetails";
+import FishTankCreate from "./pages/FishTankCreate";
 import { Route, Routes } from "react-router-dom";
 
 
@@ -27,6 +29,9 @@ function App() {
         <Route path="/rejestracja" element={ <SignUp/> } />
         <Route path="/wylogowanie" element={ <LogOut/> } />
         <Route path="/szczegolyRyby" element={ <FishDetails/> } />
+        <Route path="/szczegolyAkwarium" element={ <FishTankDetails/> } />
+        <Route path="/tworzenie" element={ <FishTankCreate/> } />
+
       </Routes>
         <Footer />
     </>
