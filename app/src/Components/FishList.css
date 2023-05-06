@@ -1,6 +1,7 @@
 .FishContainer {
     display: flex; 
     padding: 100px 100px 100px 100px;
+    color: black;
 }
 
 .Fish {
@@ -19,6 +20,7 @@
     z-index: 2;
 }
 
-.FishName {
+.Fish .FishName {
     padding-top: 50px;
+    color: black;
 }
