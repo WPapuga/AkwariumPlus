@@ -167,13 +167,13 @@ function FishTankCreate() {
 
   return (
     <body>
-      <h1>Wybierz nazwę dla swojego akwarium</h1>
+      <h1>1. Wybierz nazwę dla twojego akwarium</h1>
       <Form className='FishTankNameForm'>
         <Form.Group controlId="formBasicEmail">
           <Form.Control className='FishTankName' type="text" placeholder="Wpisz nazwę akwarium" value={fishTankName} onChange={(event) => setFishTankName(event.target.value)} />
         </Form.Group>
       </Form>
-      <h1>Wybierz ryby do akwarium</h1>
+      <h1>2. Wybierz ryby do twojego akwarium</h1>
       {isPopupVisible && (
         <div className="popup">
           <h2>Ile ryb chcesz dodać:</h2>
@@ -258,7 +258,7 @@ function FishTankCreate() {
         </div>
       </div>
     </div>
-    <h1>Wybierz wymiary akwarium</h1>
+    <h1>3. Podaj wymiary twojego akwarium</h1>
     <div className='DimensionsContainer'>
       <div className='DimensionsContainerInner'>
         <img className='FishTankImg' src='./images/fishTank.jpg'></img>
@@ -268,7 +268,7 @@ function FishTankCreate() {
         <div class="clear"></div>
       </div>
     </div>
-    <h1>Wybierz parametry wody w akwarium</h1>
+    <h1>4. Wybierz parametry wody w twoim akwarium</h1>
     <div className='WaterSpecsContainer'>
       <div className='WaterSpecsContainerInner'>
       <Table className='WaterSpecsTable'>
