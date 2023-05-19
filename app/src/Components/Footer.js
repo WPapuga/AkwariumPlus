@@ -24,6 +24,7 @@ function Footer() {
               </svg></a></li>
             </ul>
           </footer>
+          <a href="https://www.freepik.com/free-vector/cute-goldfish-swimming-tank_19394395.htm#query=fishtank&position=2&from_view=keyword&track=sph">Image by brgfx</a> on Freepik
         </div>
       </div>
   )

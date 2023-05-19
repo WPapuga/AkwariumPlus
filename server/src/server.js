@@ -260,6 +260,15 @@ app.get('/getFishTankDetails', (req, res) => {
     
 });
 
+app.post('/postFishTank', (req, res) => {
+    const fish = req.body.fish
+    const data = req.body
+    console.log(fish)
+    console.log(data)
+    res.send({message: 'Sukces'})
+});
+
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })

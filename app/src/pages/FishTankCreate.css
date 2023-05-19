@@ -5,6 +5,11 @@ body {
 body h1 {
     text-align: center;
     padding-bottom: 25px;
+    font-size: 50px;
+    color: #0A142F;
+}
+.FishBody {
+    min-height: 700px;
 }
 .FishTankNameForm {
     display: flex;
@@ -13,6 +18,7 @@ body h1 {
     padding: 0 0 0 0;
 }
 .FishTankName {
+    background: whitesmoke;
     text-align: center;
     font-size: 23px;
     width: 50vw;
@@ -21,6 +27,7 @@ body h1 {
 
 .FishChoiceConatiner {
     display: flex;
+    flex-wrap: wrap;
     min-height: 700px;
 }
 
@@ -163,7 +170,7 @@ body h1 {
 .next-navigation-button {
     background-color: #0A142F;
     margin: 0px;
-    padding: 15px 30px 15px 30px;
+    padding: 15px 20px 15px 20px;
     margin: 0 10px 0 10px;
     text-decoration: none;
     color: white;
@@ -177,7 +184,7 @@ body h1 {
 .prev-navigation-button {
     background-color: #0A142F;
     margin: 0px;
-    padding: 15px 30px 15px 30px;
+    padding: 15px 20px 15px 20px;
     margin: 0 10px 0 10px;
     text-decoration: none;
     color: white;
@@ -199,4 +206,104 @@ body h1 {
 }
 .active {
     color: #30CB70;
+}
+/* End of Pagination */
+
+
+/*Dimensions*/
+.DimensionsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.DimensionsContainerInner {
+    position: relative;
+}
+.FishTankImg {
+    display: block;
+    width: 65vw;
+    height: auto;
+    object-fit: cover;
+    border-radius: 25px;
+}
+.DimensionsContainerInner input {
+    position: absolute;
+}
+.HeightDim {
+    background: whitesmoke;
+    min-width: 140px;
+    width: 10vw;
+    top: 50%;
+    right: -4%;
+}
+.WidthDim {
+    background: whitesmoke;
+    min-width: 145px;
+    width: 10vw;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(-50%);
+}
+.DepthDim {
+    background: whitesmoke;
+    min-width: 145px;
+    width: 10vw;
+    bottom: 10%;
+    right: 5%;
+}
+/*End of Dimensions*/
+
+
+/* Water Specifications */
+.WaterSpecsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.WaterSpecsContainerInner {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    background: whitesmoke;
+    min-width: 50vw;
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+}
+.WaterSpecsTable {
+    width: 80%;
+    border-radius: 25px;
+    border-color: black;
+    background-color: whitesmoke;
+    color:black;
+}
+.WaterSpecsTable tr {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 22px;
+}
+.WaterSpecsTable input {
+    min-width: 250px;
+    text-align: center;
+    font-size: 22px;
+}
+/* End of Water Specifications */
+
+.LastContainer {
+    display: flex;
+    justify-content: center;
+}
+.SubmitFishTank {
+    padding: 10px 20px 10px 20px;
+    background-color: #0A142F;
+    border-color: #0A142F;
+    border-radius: 25px;
+    font-size: 50px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+.SubmitFishTank:hover {
+    border-color: #30CB70;
+    background-color: #30CB70;
 }

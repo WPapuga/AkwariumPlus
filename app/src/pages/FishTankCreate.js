@@ -2,23 +2,55 @@ import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Table from 'react-bootstrap/Table'
+import { useNavigate } from 'react-router-dom';
 import './FishTankCreate.css'
 
-function FishTankCreate() {
-  const [fishList, setFishList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [fishPerPage, setFishPerPage] = useState(3);
-  const [isPopupVisible, setPopupVisible] = useState(false);
-  const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [selectedDeleteQuantity, setSelectedDeleteQuantity] = useState(1);
-  const [selectedFish, setSelectedFish] = useState('');
+async function postFishTank(details) {
+  console.log(details);
+  return fetch("http://localhost:3030/postFishTank", {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(details)
+}).then(data => data.json())
+}
 
-  const [rightFishList, setRightFishList] = useState([]);
-  const [currentRightPage, setCurrentRightPage] = useState(1);
-  const [fishPerRightPage, setFishPerRightPage] = useState(3);
-  const [fishTankName, setFishTankName] = useState('');
+function FishTankCreate() {
+  const navigate = useNavigate();
+  const [fishList, setFishList] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [fishPerPage, setFishPerPage] = useState(3)
+  const [isPopupVisible, setPopupVisible] = useState(false)
+  const [isDeletePopupVisible, setDeletePopupVisible] = useState(false)
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
+  const [selectedDeleteQuantity, setSelectedDeleteQuantity] = useState(1)
+  const [selectedFish, setSelectedFish] = useState('')
+
+  const [rightFishList, setRightFishList] = useState([])
+  const [currentRightPage, setCurrentRightPage] = useState(1)
+  const [fishPerRightPage, setFishPerRightPage] = useState(3)
+  const [fishTankName, setFishTankName] = useState('')
+
+  const [widthDim, setWidthDim] = useState('')
+  const [heightDim, setHeightDim] = useState('')
+  const [depthDim, setDepthDim] = useState('')
+
+  const [wsTemp, setWsTemp] = useState('')
+  const [wsPh, setWsPh] = useState('')
+  const [wsNitrate, setWsNitrate] = useState('')
+  const [wsNitrite, setWsNitrite] = useState('')
+  const [wsHardness, setWsHardness] = useState('')
+  const [wsAmmonia, setWsAmmonia] = useState('')
+  const [wsChlorine, setWsChlorine] = useState('')
+  const [wsPhosphates, setWsPhosphates] = useState('')
+  const [wsCalcium, setWsCalcium] = useState('')
+  const [wsMagnesium, setWsMagnesium] = useState('')
+  const [wsCo2, setWsCo2] = useState('')
+
+
 
 
   useEffect(() => {
@@ -27,7 +59,6 @@ function FishTankCreate() {
         .then(response => response.json())
         .then(data => {
           setFishList(data);
-          console.log(data);
           setLoading(false);
         });
   }, []);
@@ -102,6 +133,37 @@ function FishTankCreate() {
     }
     toggleDeletePopUp();
   };
+  const createFishTank = async e => {
+    e.preventDefault();
+    const res = await postFishTank({
+      fishTankName,
+      width: widthDim,
+      height: heightDim,
+      depth: depthDim,
+      water: {
+        tempeture: wsTemp,
+        ph: wsPh,
+        nitrate: wsNitrate,
+        nitrite: wsNitrite,
+        hardness: wsHardness,
+        ammonia: wsAmmonia,
+        chlorine: wsChlorine,
+        phosphates: wsPhosphates,
+        calcium: wsCalcium,
+        magnesium: wsMagnesium,
+        co2: wsCo2
+      },
+      fish: rightFishList,
+      date: Date.now()
+    });
+    if(res.message == "Sukces"){
+      alert("Utworzono akwarium")
+      navigate('/konto', { replace: true });
+      window.location.reload(false);
+    } else {
+      alert("Błąd")
+    }
+} 
 
   return (
     <body>
@@ -161,8 +223,8 @@ function FishTankCreate() {
           <ReactPaginate
                     onPageChange={paginate}
                     pageCount={Math.ceil(fishList.length / fishPerPage)}
-                    previousLabel={'Poprzednia Strona'}
-                    nextLabel={'Następna Strona'}
+                    previousLabel={'<'}
+                    nextLabel={'>'}
                     containerClassName={'pagination'}
                     pageLinkClassName={'page-number'}
                     previousLinkClassName={'prev-navigation-button'}
@@ -180,22 +242,88 @@ function FishTankCreate() {
                   </div>
               ))}
           </div>
+          {rightFishList.length > 0 ? (
           <ReactPaginate
                     onPageChange={paginateRight}
                     pageCount={Math.ceil(rightFishList.length / fishPerRightPage)}
-                    previousLabel={'Poprzednia Strona'}
-                    nextLabel={'Następna Strona'}
+                    previousLabel={'<'}
+                    nextLabel={'>'}
                     containerClassName={'pagination'}
                     pageLinkClassName={'page-number'}
                     previousLinkClassName={'prev-navigation-button'}
                     nextLinkClassName={'next-navigation-button'}
                     activeLinkClassName={'active'}
           />
+          ): () => {return null}} 
         </div>
       </div>
     </div>
     <h1>Wybierz wymiary akwarium</h1>
+    <div className='DimensionsContainer'>
+      <div className='DimensionsContainerInner'>
+        <img className='FishTankImg' src='./images/fishTank.jpg'></img>
+        <Form.Control className='WidthDim' type="text" placeholder="Wpisz szerokość (cm)" value={widthDim} onChange={(event) => setWidthDim(event.target.value)} />
+        <Form.Control className='HeightDim' type="text" placeholder="Wpisz wysokość (cm)" value={heightDim} onChange={(event) => setHeightDim(event.target.value)} />
+        <Form.Control className='DepthDim' type="text" placeholder="Wpisz głębokość (cm)" value={depthDim} onChange={(event) => setDepthDim(event.target.value)} />
+        <div class="clear"></div>
+      </div>
+    </div>
     <h1>Wybierz parametry wody w akwarium</h1>
+    <div className='WaterSpecsContainer'>
+      <div className='WaterSpecsContainerInner'>
+      <Table className='WaterSpecsTable'>
+          <tbody>
+            <tr>
+              <td>Temperatura</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz temperature" value={wsTemp} onChange={(event) => setWsTemp(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Twardość wody</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz twardość wody" value={wsHardness} onChange={(event) => setWsHardness(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>ph</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ph" value={wsPh} onChange={(event) => setWsPh(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Amoniak</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość amoniaku" value={wsAmmonia} onChange={(event) => setWsAmmonia(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Azotyn</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość azotynu" value={wsNitrite} onChange={(event) => setWsNitrite(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Azotan</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość azotanu" value={wsNitrate} onChange={(event) => setWsNitrate(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Fosforany</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość fosforanów" value={wsPhosphates} onChange={(event) => setWsPhosphates(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Wapń</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość wapnia" value={wsCalcium} onChange={(event) => setWsCalcium(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Magnez</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość magnezu" value={wsMagnesium} onChange={(event) => setWsMagnesium(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Chlor</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość chloru" value={wsChlorine} onChange={(event) => setWsChlorine(event.target.value)} /></td>
+            </tr>
+            <tr>
+              <td>Dwutlenek Węgla</td>
+              <td><Form.Control className='WaterSpecsInput' type="text" placeholder="Wpisz ilość CO2" value={wsCo2} onChange={(event) => setWsCo2(event.target.value)} /></td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+    </div>
+    <div className='LastContainer'>
+      <Button className='SubmitFishTank' onClick={createFishTank}>Stwórz Akwarium</Button>
+    </div>
     </body>
   )
 }

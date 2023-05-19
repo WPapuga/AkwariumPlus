@@ -1,4 +1,3 @@
-import logo from '../logo.svg';                    //react logo
 import Button from 'react-bootstrap/Button';      
 import BenefitsDescription from '../Components/BenefitsDescription';
 import Carousel from '../Components/Carousel';
