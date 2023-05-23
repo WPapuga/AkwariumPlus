@@ -38,25 +38,31 @@ export default function SignIn() {
         }
     } 
     return (
-        <div className="App">
-            <body className="App-body">
-                <img className="UserImg"src="user_icon.svg" alt="logo" />
-                <p>Logowanie</p>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Email/Login</Form.Label>
-                        <Form.Control type="email" placeholder="e-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Hasło</Form.Label>
-                        <Form.Control type="password" placeholder="hasło" value={password} onChange={(event) => setPassword(event.target.value)} />
-                    </Form.Group>
-                    <Button className="SubmitButton" variant="primary" type="submit">
-                        Zaloguj się
-                    </Button>
-                </Form>
-                <p className='LoginStatus'>{loginStatus}</p>
-            </body>
+      <section>
+        <div className='SignFormContainer'>
+          <img className="UserImg"src="user_icon.svg" alt="logo" />
+          <h2 className='SignInfo'>Logowanie</h2>
+          <Form onSubmit={handleSubmit}>
+              <div className='EmailContainer'>
+                <Form.Group>
+                    <Form.Label>Email/Login</Form.Label>
+                    <Form.Control type="email" placeholder="e-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
+                </Form.Group>
+              </div>
+              <div className='PasswordContainer'>
+                <Form.Group>
+                    <Form.Label>Hasło</Form.Label>
+                    <Form.Control type="password" placeholder="hasło" value={password} onChange={(event) => setPassword(event.target.value)} />
+                </Form.Group>
+              </div>
+              <div className='SignButtonContainer'>
+                <Button className="SubmitButton" variant="primary" type="submit">
+                    Zaloguj się
+                </Button>
+              </div>
+          </Form>
+          <p className='LoginStatus'>{loginStatus}</p>
         </div>
+      </section>
     );
 }

@@ -3,6 +3,7 @@
 }
 
 .SubmitButton {
+    margin-top: 50px;
     font-size: 23px;
     background-color: white;
     border-color: #2F327D;
@@ -14,4 +15,87 @@
     background-color: #30CB70;
     border-color: #30CB70;
     color: white;
+}
+
+.UserImg {
+    margin-top: 30px;
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(145deg) brightness(105%) contrast(104%);
+    width: 150px;
+    height: auto;
+  }
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: url('../../public/images/logintlo.jpg');
+    background-size: cover;
+}
+
+.SignFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    min-height: 600px;
+    border: solid 4px;
+    border-color: white;;
+    border-radius: 20px;
+    backdrop-filter: blur(13px);
+}
+
+.EmailContainer {
+    width: 300px;
+    border-bottom: solid white;
+    color: white;
+}
+.EmailContainer input {
+    border: none;
+    background: transparent;
+    color: white;
+}
+.EmailContainer input::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+.EmailContainer input:focus {
+    background-color: transparent;
+    border: solid white;
+    color: white;
+}
+.EmailContainer input[type="text"] {
+    color: white;
+}
+
+.PasswordContainer {
+    width: 300px;
+    border-bottom: solid white;
+    color: white;
+}
+.PasswordContainer input {
+    border: none;
+    background: transparent;
+    color: white;
+}
+.PasswordContainer input::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+.PasswordContainer input:focus {
+    background-color: transparent;
+    border: solid white;
+    color: white;
+}
+
+.SignButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignInfo {
+    color: white
 }
