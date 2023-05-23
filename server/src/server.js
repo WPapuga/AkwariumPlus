@@ -42,6 +42,23 @@ const getFishes= async () => {
         console.log(error)
     }
 }
+const getAllEquipment= async () => {
+    try {
+        const res = await pool.query(`SELECT * FROM public."Wyposazenie"`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getEquipment= async (id) => {
+    try {
+        const res = await pool.query(`SELECT * FROM public."Wyposazenie" WHERE id = ${id}`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
 const getFish= async (id) => {
     try {
         const res = await pool.query(`SELECT * FROM public."Ryby" WHERE id = ${id}`)
@@ -95,65 +112,10 @@ app.get('/getFish', async (req, res) => {
     const ryby = await getFishes();
     res.send(ryby.rows);
 });
-app.get('/getFilters', (req, res) => {
-    res.send([
-        {
-            id: 1,
-            name: "AZOO TWIN EFFECT BIO-DENITRATOR",
-            image: "AZOO_TWIN_EFFECT_BIO_DENITRATOR.jpg",
-            description: "służy do usuwania stale gromadzącego się azotu w formie azotanów (NO3)."
-        },
-        {
-            id: 2,
-            name: "ISTA SMART FILTER 16/22MM IF 102",
-            image: "ISTA_SMART_FILTER_16_22MM_IF_102.jpg",
-            description: "Ista Smart Filter to filtr zewnętrzny, który może pracować jako filtr wstępny, niezależny filtr kompaktowy lub, w połączeniu z innymi, jako system pre-filtracyjny. "
-        },
-        {
-            id: 3,
-            name: "EHEIM PROFESSIONEL 3 1200XL T",
-            image: "EHEIM_PROFESSIONEL_3_1200XL_T.jpg",
-            description: "Seria PROFESSIONEL 3 to ukoronowanie technologii filtracji światowej marki EHEIM. Nie ma chyba lepszych filtrów kubełkowych na świecie."
-        },
-        {
-            id: 4,
-            name: "UST-M RO6",
-            image: "UST_M_RO6.jpg",
-            description: "Filtr RO idealnie łączący możliwość łatwego zastosowania oczyszczonej wody do celów spożywczych jak również akwarystycznych. "
-        }
-    ]);
-});
-app.get('/getHeaters', (req, res) => {
-    res.send([
-        {
-            id: 1,
-            name: "AN NHA-25",
-            image: "AN_NHA_25.jpg",
-            description: "Grzałka z termostatem. Szkło QUARTZ, grzałka w pełni zanurzalna. Kontrolka ON/OFF określająca pracę grzałki."
-        },
-        {
-            id: 2,
-            name: "Oase HeatUp Basis 20",
-            image: "Oase_HeatUp_Basis_20.jpg",
-            description: "Ogrzewanie podżwirowe - kable grzewcze Oase HeatUp Basis 20W idealnie nadają się dla wymagających roślin akwariowych, które dzięki ich zastosowaniu na dnie akwarium lepiej się rozwijają."
-        },
-        {
-            id: 3,
-            name: "EHEIM thermocontrol+ e 300",
-            image: "EHEIM_thermocontrol_e_300.jpg",
-            description: "EHEIM thermocontrol+ e to to pierwsza regulowana grzałka z cyfrowym sterowaniem przez WLAN."
-        }
-    ]);
-});
-app.get('/getDecorations', (req, res) => {
-    res.send([
-        {
-            id: 1,
-            name: "Aqua Della CROCODILE HEAD M",
-            image: "czaszka_krokodyla.jpg",
-            description: "czaszka krokodyla 19.5x9.5x10.5cm"
-        }
-    ]);
+app.get('/getEquipment', async (req, res) => {
+    console.log("Wyposazenie");
+    const wyposazenie = await getAllEquipment();
+    res.send(wyposazenie.rows);
 });
 app.get('/getFishDetails', async (req, res) => {
     const id = req.query.id;
@@ -287,13 +249,22 @@ app.get('/getFishTankDetails', async (req, res) => {
                 tempfishes.push(fish.rows[0]);
             }
         }
+        console.log(fishtank);
+
+        let equipment = fishtank.wyposazenie.id.split(',');
+        let tempEquipment = [];
+        for (let i = 0; i < equipment.length; i++) {
+            const eq = await getEquipment((equipment[i]).toString());
+            tempEquipment.push(eq.rows[0]);
+        }
         if(fishtank.parametry_wody != null) {
             fishtank.parametry_wody = fishtank.parametry_wody.substring(1, fishtank.parametry_wody.length - 1);
             fishtank.parametry_wody = fishtank.parametry_wody.split(',');
         }
         fishtank.ryby = tempfishes;
-        console.log(ryby);
+        fishtank.wyposazenie = tempEquipment;
         console.log(fishtank);
+        console.log(ryby);
 
         res.send(temp.rows[0]);
     }

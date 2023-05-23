@@ -30,7 +30,7 @@ function FishTankDetails() {
           console.log(data);
           setFishList(data.ryby)
           setParameters(data.parametry_wody);
-          // setEquipment(data.wyposazenie);
+          setEquipment(data.wyposazenie);
           setLoading(false);
         });
   }, [])
@@ -38,9 +38,9 @@ function FishTankDetails() {
   const indexOfFirstFish = indexOfLastFish - fishPerPage;
   const currentFish = fishList.slice(indexOfFirstFish, indexOfLastFish);
 
-  // const indexOfLastEquipment = page2 * fishPerPage;
-  // const indexOfFirstEquipment = indexOfLastEquipment - fishPerPage;
-  // const currentEquipment = equipment.slice(indexOfFirstEquipment, indexOfLastEquipment);
+  const indexOfLastEquipment = page2 * fishPerPage;
+  const indexOfFirstEquipment = indexOfLastEquipment - fishPerPage;
+  const currentEquipment = equipment.slice(indexOfFirstEquipment, indexOfLastEquipment);
 
   function handlePageChange1(selectedPage) {
     setPage1(selectedPage.selected+1)
@@ -78,19 +78,19 @@ function FishTankDetails() {
               nextLinkClassName={'next-navigation-button'}
               activeLinkClassName={'active'}
           />
-          {/*<h2>Twoje wyposażenie: </h2>*/}
-          {/*<FishList fish={currentEquipment} loading={loading}/>*/}
-          {/*<ReactPaginate*/}
-          {/*    onPageChange={handlePageChange2}*/}
-          {/*    pageCount={Math.ceil(equipment.length / fishPerPage)}*/}
-          {/*    previousLabel={'Poprzednia Strona'}*/}
-          {/*    nextLabel={'Następna Strona'}*/}
-          {/*    containerClassName={'pagination'}*/}
-          {/*    pageLinkClassName={'page-number'}*/}
-          {/*    previousLinkClassName={'prev-navigation-button'}*/}
-          {/*    nextLinkClassName={'next-navigation-button'}*/}
-          {/*    activeLinkClassName={'active'}*/}
-          {/*/>*/}
+          <h2>Twoje wyposażenie: </h2>
+          <FishList fish={currentEquipment} loading={loading}/>
+          <ReactPaginate
+              onPageChange={handlePageChange2}
+              pageCount={Math.ceil(equipment.length / fishPerPage)}
+              previousLabel={'Poprzednia Strona'}
+              nextLabel={'Następna Strona'}
+              containerClassName={'pagination'}
+              pageLinkClassName={'page-number'}
+              previousLinkClassName={'prev-navigation-button'}
+              nextLinkClassName={'next-navigation-button'}
+              activeLinkClassName={'active'}
+          />
       <h2>Parametry wody na {fishTank.data_pomiaru}:</h2>
           <div className='WaterSpecsContainer'>
             <div className='WaterSpecsContainerInner'>
