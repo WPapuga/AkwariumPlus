@@ -29,6 +29,7 @@ const getFishTank= async (id) => {
     try {
         const res = await pool.query(`SELECT * FROM public."Akwarium" WHERE id = ${id}`)
         console.log(res)
+        return res;
     } catch (error) {
         console.log(error)
     }
@@ -272,10 +273,29 @@ app.get('/getFishTankDetails', async (req, res) => {
             }
         );
     }
-    if (id == 3) {
+    if (id == 6) {
         const temp = await getFishTank(id);
-        console.log(temp.rows);
-        res.send(temp);
+        const fishtank = temp.rows[0];
+        let tempfishes=[];
+        let ryby = fishtank.ryby.substring(2, fishtank.ryby.length - 2)
+        ryby = ryby.split('(');
+        for (let i = 0; i < ryby.length; i++) {
+            ryby[i] = ryby[i].split(',');
+            if(ryby[i][1]) {
+                console.log(ryby[i][1]);
+                const fish = await getFish((ryby[i][1]).toString());
+                tempfishes.push(fish.rows[0]);
+            }
+        }
+        if(fishtank.parametry_wody != null) {
+            fishtank.parametry_wody = fishtank.parametry_wody.substring(1, fishtank.parametry_wody.length - 1);
+            fishtank.parametry_wody = fishtank.parametry_wody.split(',');
+        }
+        fishtank.ryby = tempfishes;
+        console.log(ryby);
+        console.log(fishtank);
+
+        res.send(temp.rows[0]);
     }
     if (id == 4) {
         res.send(

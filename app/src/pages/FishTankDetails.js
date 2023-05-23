@@ -17,7 +17,7 @@ function FishTankDetails() {
   const [page1, setPage1] = useState(1);
   const [page2, setPage2] = useState(1);
   const [fishPerPage, setFishPerPage] = useState(3);
-  const [parameters, setParameters] = useState({});
+  const [parameters, setParameters] = useState([]);
   const [equipment, setEquipment] = useState([]);
 
 
@@ -30,7 +30,7 @@ function FishTankDetails() {
           console.log(data);
           setFishList(data.ryby)
           setParameters(data.parametry_wody);
-          setEquipment(data.wyposazenie);
+          // setEquipment(data.wyposazenie);
           setLoading(false);
         });
   }, [])
@@ -38,9 +38,9 @@ function FishTankDetails() {
   const indexOfFirstFish = indexOfLastFish - fishPerPage;
   const currentFish = fishList.slice(indexOfFirstFish, indexOfLastFish);
 
-  const indexOfLastEquipment = page2 * fishPerPage;
-  const indexOfFirstEquipment = indexOfLastEquipment - fishPerPage;
-  const currentEquipment = equipment.slice(indexOfFirstEquipment, indexOfLastEquipment);
+  // const indexOfLastEquipment = page2 * fishPerPage;
+  // const indexOfFirstEquipment = indexOfLastEquipment - fishPerPage;
+  // const currentEquipment = equipment.slice(indexOfFirstEquipment, indexOfLastEquipment);
 
   function handlePageChange1(selectedPage) {
     setPage1(selectedPage.selected+1)
@@ -78,19 +78,19 @@ function FishTankDetails() {
               nextLinkClassName={'next-navigation-button'}
               activeLinkClassName={'active'}
           />
-          <h2>Twoje wyposażenie: </h2>
-          <FishList fish={currentEquipment} loading={loading}/>
-          <ReactPaginate
-              onPageChange={handlePageChange2}
-              pageCount={Math.ceil(equipment.length / fishPerPage)}
-              previousLabel={'Poprzednia Strona'}
-              nextLabel={'Następna Strona'}
-              containerClassName={'pagination'}
-              pageLinkClassName={'page-number'}
-              previousLinkClassName={'prev-navigation-button'}
-              nextLinkClassName={'next-navigation-button'}
-              activeLinkClassName={'active'}
-          />
+          {/*<h2>Twoje wyposażenie: </h2>*/}
+          {/*<FishList fish={currentEquipment} loading={loading}/>*/}
+          {/*<ReactPaginate*/}
+          {/*    onPageChange={handlePageChange2}*/}
+          {/*    pageCount={Math.ceil(equipment.length / fishPerPage)}*/}
+          {/*    previousLabel={'Poprzednia Strona'}*/}
+          {/*    nextLabel={'Następna Strona'}*/}
+          {/*    containerClassName={'pagination'}*/}
+          {/*    pageLinkClassName={'page-number'}*/}
+          {/*    previousLinkClassName={'prev-navigation-button'}*/}
+          {/*    nextLinkClassName={'next-navigation-button'}*/}
+          {/*    activeLinkClassName={'active'}*/}
+          {/*/>*/}
       <h2>Parametry wody na {fishTank.data_pomiaru}:</h2>
           <div className='WaterSpecsContainer'>
             <div className='WaterSpecsContainerInner'>
@@ -98,47 +98,47 @@ function FishTankDetails() {
                 <tbody>
                 <tr>
                   <td>Temperatura</td>
-                  <td>{parameters.temperatura}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[0]}</td>
                 </tr>
                 <tr>
                   <td>Twardość wody</td>
-                  <td>{parameters.twardosc}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[1]}</td>
                 </tr>
                 <tr>
                   <td>ph</td>
-                  <td>{parameters.ph}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[2]}</td>
                 </tr>
                 <tr>
                   <td>Amoniak</td>
-                  <td>{parameters.amoniak}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[3]}</td>
                 </tr>
                 <tr>
                   <td>Azotyn</td>
-                  <td>{parameters.azotyn}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[4]}</td>
                 </tr>
                 <tr>
                   <td>Azotan</td>
-                  <td>{parameters.azotan}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[5]}</td>
                 </tr>
                 <tr>
                   <td>Fosforany</td>
-                  <td>{parameters.fosforany}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[6]}</td>
                 </tr>
                 <tr>
                   <td>Wapń</td>
-                  <td>{parameters.wapn}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[7]}</td>
                 </tr>
                 <tr>
                   <td>Magnez</td>
-                  <td>{parameters.magnez}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[8]}</td>
                 </tr>
                 <tr>
                   <td>Chlor</td>
-                  <td>{parameters.chlor}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[9]}</td>
                 </tr>
                 <tr>
                   <td>Dwutlenek Węgla</td>
-                  <td>{parameters.dwutlenek_wegla}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[10]}</td>
                 </tr>
                 </tbody>
               </Table>
