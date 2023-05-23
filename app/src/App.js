@@ -6,7 +6,6 @@ import Equipment from './pages/Equipment';
 import Fishes from './pages/Fishes';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import LogOut from './pages/LogOut';
 import Account from './pages/Account';
 import FishDetails from './pages/FishDetails';
 import Footer from "./Components/Footer";
@@ -27,7 +26,6 @@ function App() {
         <Route path="/konto" element={ <Account/> } />
         <Route path="/logowanie" element={ <SignIn/> } />
         <Route path="/rejestracja" element={ <SignUp/> } />
-        <Route path="/wylogowanie" element={ <LogOut/> } />
         <Route path="/szczegolyRyby" element={ <FishDetails/> } />
         <Route path="/szczegolyAkwarium" element={ <FishTankDetails/> } />
         <Route path="/tworzenie" element={ <FishTankCreate/> } />

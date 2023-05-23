@@ -3,9 +3,16 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Navbar.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Greeting(props) {
     const isLoggedIn = props.isLoggedIn;
+    const handleLogout = () => {
+      toast.success('Wylogowano pomyślnie!');
+      sessionStorage.setItem('isLogged', false);
+      setTimeout(function(){ window.location.reload(false); }, 5000);
+    };
     return ( 
         <div className="Navbar">
         <div className="NavLeftSide">
@@ -20,7 +27,7 @@ function Greeting(props) {
         </div>
         <div className="NavSigning">
             {sessionStorage.getItem('isLogged') == "true" ? 
-                <CustomLink to="/wylogowanie">Wyloguj</CustomLink>
+                <a href="#" onClick={handleLogout}>Wyloguj</a>
                 :
                 <>
                 <CustomLink to="/logowanie">Zaloguj</CustomLink>
@@ -30,6 +37,7 @@ function Greeting(props) {
                 </>
             }
         </div>
+        <ToastContainer />
         </div>
     );
 }
