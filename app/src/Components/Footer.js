@@ -24,7 +24,8 @@ function Footer() {
               </svg></a></li>
             </ul>
           </footer>
-          <a href="https://www.freepik.com/free-vector/cute-goldfish-swimming-tank_19394395.htm#query=fishtank&position=2&from_view=keyword&track=sph">Image by brgfx</a> on Freepik
+          <a href="https://www.freepik.com/free-vector/cute-goldfish-swimming-tank_19394395.htm#query=fishtank&position=2&from_view=keyword&track=sph">Image by brgfx</a> on Freepik <br></br>
+          <a href="https://www.freepik.com/free-vector/blue-water-background-with-bubbles-floating-upwards_5188444.htm#query=water%20bubbles%20background&position=0&from_view=keyword&track=ais">Image by starline</a> on Freepik
         </div>
       </div>
   )
