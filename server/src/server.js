@@ -164,27 +164,27 @@ app.get('/getFishTankDetails', async (req, res) => {
                 name: "Akwarium 1",
                 ryby: [{
                     id: 1,
-                    name: "Bystrzyk pięknopłetwy",
-                    image: "Bystrzyk_pięknopłetwy.jpg",
-                    description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
+                    gatunek: "Bystrzyk pięknopłetwy",
+                    obraz: "Bystrzyk_pięknopłetwy.jpg",
+                    opis: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
                 },
                     {
                         id: 2,
-                        name: "Danio Kerra",
-                        image: "Danio_Kerra.jpg",
-                        description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
+                        gatunek: "Danio Kerra",
+                        obraz: "Danio_Kerra.jpg",
+                        opis: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
                     },
                     {
                         id: 3,
-                        name: "Bystrzyk czarny",
-                        image: "Bystrzyk_czarny.jpg",
-                        description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
+                        gatunek: "Bystrzyk czarny",
+                        obraz: "Bystrzyk_czarny.jpg",
+                        opis: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
                     },
                     {
                         id: 3,
-                        name: "Bystrzyk czarny",
-                        image: "Bystrzyk_czarny.jpg",
-                        description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
+                        gatunek: "Bystrzyk czarny",
+                        obraz: "Bystrzyk_czarny.jpg",
+                        opis: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
                     },
                 ],
                 wyposazenie: [{

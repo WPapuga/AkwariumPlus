@@ -117,8 +117,8 @@ function FishTankCreate() {
     } else {
       let newFish = {
         id: selectedFish.id,
-        name: selectedFish.name,
-        image: selectedFish.image,
+        gatunek: selectedFish.gatunek,
+        obraz: selectedFish.obraz,
         quantity: selectedQuantity
       }
       setRightFishList([...rightFishList, newFish]);
@@ -178,7 +178,7 @@ function FishTankCreate() {
         <div className="popup">
           <h2>Ile ryb chcesz dodać:</h2>
           <div className='UpperPopup'>
-            <img src={`images/${selectedFish.image}`}></img>
+            <img src={`images/${selectedFish.obraz}`}></img>
           </div>
           <div className='MiddlePopup'>
             <Button onClick={decreaseCounter} className='changeButton'>-</Button>
@@ -195,7 +195,7 @@ function FishTankCreate() {
         <div className="popup">
           <h2>Ile ryb chcesz usunąć:</h2>
           <div className='UpperPopup'>
-            <img src={`images/${selectedFish.image}`}></img>
+            <img src={`images/${selectedFish.obraz}`}></img>
           </div>
           <div className='MiddlePopup'>
             <Button onClick={decreaseDeleteCounter} className='changeButton'>-</Button>
@@ -215,8 +215,8 @@ function FishTankCreate() {
               <h2>Wybierz ryby</h2>
               {currentFish.map((item) => (
                   <div className='Fish' key={item.id}>
-                      <img className='FishImage' src={`images/${item.image}`} onClick={ () => {togglePopUp(); setSelectedFish(item)}}></img>
-                      <h3 className='FishName'>{item.name}</h3>
+                      <img className='FishImage' src={`images/${item.obraz}`} onClick={ () => {togglePopUp(); setSelectedFish(item)}}></img>
+                      <h3 className='FishName'>{item.gatunek}</h3>
                   </div>
               ))}
           </div>
@@ -237,8 +237,8 @@ function FishTankCreate() {
               <h2>Twoje ryby</h2>
               {currentRightFish.map((item) => (
                   <div className='Fish' key={item.id}>
-                      <img className='FishImage' src={`images/${item.image}`} onClick={ () => {toggleDeletePopUp(); setSelectedFish(item)}}></img>
-                      <h3 className='FishName'>{item.name} x{item.quantity}</h3>
+                      <img className='FishImage' src={`images/${item.obraz}`} onClick={ () => {toggleDeletePopUp(); setSelectedFish(item)}}></img>
+                      <h3 className='FishName'>{item.gatunek} x{item.quantity}</h3>
                   </div>
               ))}
           </div>

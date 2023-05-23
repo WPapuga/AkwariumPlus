@@ -50,7 +50,7 @@ body h1 {
     display: flex;
     flex-direction: column;
     min-width: 25vw;
-    min-height: 640px;
+    min-height: 650px;
     padding: 50px 100px 50px 100px;
     margin: 0 100px 0 100px;
 }
@@ -82,7 +82,7 @@ body h1 {
 .popup {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     width: 500px;
-    height: 445px;
+    height: 500px;
     background: whitesmoke;
     border-radius: 25px;
     position: fixed;
