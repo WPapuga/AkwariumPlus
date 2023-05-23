@@ -25,7 +25,30 @@ const testDB = async () => {
         console.log(error)
     }
 }
-
+const getFishTank= async (id) => {
+    try {
+        const res = await pool.query(`SELECT * FROM public."Akwarium" WHERE id = ${id}`)
+        console.log(res)
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getFishes= async () => {
+    try {
+        const res = await pool.query(`SELECT * FROM public."Ryby"`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getFish= async (id) => {
+    try {
+        const res = await pool.query(`SELECT * FROM public."Ryby" WHERE id = ${id}`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
 app.use(cors()); 
 app.use(bodyParser.json()); 
 app.use((req, res, next) => {
@@ -52,7 +75,6 @@ app.post('/login', (req, res) => {
         }
     })
 });
-
 app.post('/register', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -67,34 +89,10 @@ app.post('/register', (req, res) => {
     })
 });
 
-app.get('/getFish', (req, res) => {
+app.get('/getFish', async (req, res) => {
     console.log("Ryby");
-    res.send([
-        { 
-            id: 1, 
-            name: "Bystrzyk pięknopłetwy",
-            image: "Bystrzyk_pięknopłetwy.jpg",
-            description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
-        },
-        { 
-            id: 2, 
-            name: "Danio Kerra",
-            image: "Danio_Kerra.jpg",
-            description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
-        },
-        { 
-            id: 3, 
-            name: "Bystrzyk czarny",
-            image: "Bystrzyk_czarny.jpg",
-            description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
-        },
-        { 
-            id: 4, 
-            name: "Sum rekini",
-            image: "Sum_rekini.jpg",
-            description: "gatunek słodkowodnej ryby sumokształtnej z rodziny Pangasiidae, poławiany gospodarczo i hodowany w celach konsumpcyjnych, pomimo dużych rozmiarów jest często spotykany jako ryba akwariowa."
-        }
-    ]);
+    const ryby = await getFishes();
+    res.send(ryby.rows);
 });
 app.get('/getFilters', (req, res) => {
     res.send([
@@ -156,49 +154,20 @@ app.get('/getDecorations', (req, res) => {
         }
     ]);
 });
-app.get('/getFishDetails', (req, res) => {
+app.get('/getFishDetails', async (req, res) => {
     const id = req.query.id;
-    if (id == 1) {
-        res.send(
-            { 
-                id: 1, 
-                name: "Bystrzyk pięknopłetwy",
-                image: "Bystrzyk_pięknopłetwy.jpg",
-                description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
-            }
-        );
+    const temp = await getFish(id);
+    console.log(temp.rows[0]);
+    if(temp.rows[0].parametrywodymin != null) {
+        temp.rows[0].parametrywodymin = temp.rows[0].parametrywodymin.substring(1, temp.rows[0].parametrywodymin.length - 1);
+        temp.rows[0].parametrywodymin = temp.rows[0].parametrywodymin.split(',');
     }
-    if (id == 2) {
-        res.send(
-            { 
-                id: 2, 
-                name: "Danio Kerra",
-                image: "Danio_Kerra.jpg",
-                description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
-            }
-        );
+    if(temp.rows[0].parametrywodymax != null) {
+        temp.rows[0].parametrywodymax = temp.rows[0].parametrywodymax.substring(1, temp.rows[0].parametrywodymax.length - 1);
+        temp.rows[0].parametrywodymax = temp.rows[0].parametrywodymax.split(',');
     }
-    if (id == 3) {
-        res.send(
-            { 
-                id: 3, 
-                name: "Bystrzyk czarny",
-                image: "Bystrzyk_czarny.jpg",
-                description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
-            }
-        );
-    }
-    if (id == 4) {
-        res.send(
-            { 
-                id: 4, 
-                name: "Sum rekini",
-                image: "Sum_rekini.jpg",
-                description: "gatunek słodkowodnej ryby sumokształtnej z rodziny Pangasiidae, poławiany gospodarczo i hodowany w celach konsumpcyjnych, pomimo dużych rozmiarów jest często spotykany jako ryba akwariowa."
-            }
-        );
-    }
-    
+    console.log(temp.rows[0].parametrywodymax);
+    res.send(temp.rows[0]);
 });
 
 app.get('/getFishTank', (req, res) => {
@@ -223,27 +192,39 @@ app.get('/getFishTank', (req, res) => {
     ]);
 });
 
-app.get('/getFishTankDetails', (req, res) => {
+app.get('/getFishTankDetails', async (req, res) => {
     const id = req.query.id;
     if (id == 1) {
         res.send(
-            { 
-                id: 1, 
+            {
+                id: 1,
                 name: "Akwarium 1",
-                ryby:[{
+                ryby: [{
                     id: 1,
                     name: "Bystrzyk pięknopłetwy",
                     image: "Bystrzyk_pięknopłetwy.jpg",
                     description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
                 },
-                {
-                    id: 2,
-                    name: "Danio Kerra",
-                    image: "Danio_Kerra.jpg",
-                    description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
-                }
+                    {
+                        id: 2,
+                        name: "Danio Kerra",
+                        image: "Danio_Kerra.jpg",
+                        description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
+                    },
+                    {
+                        id: 3,
+                        name: "Bystrzyk czarny",
+                        image: "Bystrzyk_czarny.jpg",
+                        description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
+                    },
+                    {
+                        id: 3,
+                        name: "Bystrzyk czarny",
+                        image: "Bystrzyk_czarny.jpg",
+                        description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae)."
+                    },
                 ],
-                wyposazenie:[{
+                wyposazenie: [{
                     id: 1,
                     name: "AN NHA-25",
                     image: "AN_NHA_25.jpg",
@@ -262,53 +243,49 @@ app.get('/getFishTankDetails', (req, res) => {
                         description: "EHEIM thermocontrol+ e to to pierwsza regulowana grzałka z cyfrowym sterowaniem przez WLAN."
                     }
                 ],
-                wysokosc_cm:50,
-                szerokosc_cm:25,
-                dlugosc_cm:30,
-                parametry_wody:{
-                    ph:7.5,
-                    twardosc:5,
-                    temperatura:25,
-                    amoniak:0,
-                    azotyn:0,
-                    azotan:0,
-                    fosforany:0,
-                    wapn:0,
-                    magnez:2,
-                    chlor:1,
-                    dwutlenek_wegla:0
+                wysokosc_cm: 50,
+                szerokosc_cm: 25,
+                dlugosc_cm: 30,
+                parametry_wody: {
+                    ph: 7.5,
+                    twardosc: 5,
+                    temperatura: 25,
+                    amoniak: 0,
+                    azotyn: 0,
+                    azotan: 0,
+                    fosforany: 0,
+                    wapn: 0,
+                    magnez: 2,
+                    chlor: 1,
+                    dwutlenek_wegla: 0
                 },
-                data_pomiaru:"2021-05-01 12:00:00"
+                data_pomiaru: "2021-05-01 12:00:00"
 
             },
-
         );
     }
     if (id == 2) {
         res.send(
-            { 
-                id: 2, 
+            {
+                id: 2,
                 name: "Akwarium 2"
             }
         );
     }
     if (id == 3) {
-        res.send(
-            { 
-                id: 3, 
-                name: "Akwarium 3"
-            }
-        );
+        const temp = await getFishTank(id);
+        console.log(temp.rows);
+        res.send(temp);
     }
     if (id == 4) {
         res.send(
-            { 
-                id: 4, 
+            {
+                id: 4,
                 name: "Akwarium 4"
             }
         );
     }
-    
+
 });
 
 app.post('/postFishTank', (req, res) => {

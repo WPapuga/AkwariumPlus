@@ -9,26 +9,25 @@ function FishDetails() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const [fish, setFish] = useState({});
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-      setLoading(true);
-      fetch(`http://localhost:3030/getFishDetails?id=${id}`)
+  const [loading, setLoading] = useState(true);
+  useEffect( () => {
+    setLoading(true);
+    fetch(`http://localhost:3030/getFishDetails?id=${id}`)
         .then(response => response.json())
-        .then(data => {
+        .then( data => {
           setFish(data);
           console.log(data);
           setLoading(false);
         });
   }, []);
-
   return (
     <body className='FishBody'>
       <div className='FishDetailsContainer'>
-        <h1 className='FishName'>{loading ? 'Wczytywanie...' : fish.name}</h1><br></br>
-        <img className='FishImage' src={`/images/${fish.image}`}></img>
+        <h1 className='FishName'>{loading ? 'Wczytywanie...' : fish.nazwa}</h1><br></br>
+        <img className='FishImage' src={`/images/${fish.obraz}`}></img>
         <div className='FishDescription'>
           <h2>Opis ryby</h2>
-          <p>{fish.description}</p> 
+          <p>{fish.opis}</p>
         </div>
         <div className='WaterSpecs'>
         <Table>
@@ -45,58 +44,58 @@ function FishDetails() {
             </tr>
             <tr>
               <td>Temperatura</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[0] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[0] : 0}</td>
             </tr>
             <tr>
               <td>Twardość wody</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
             </tr>
             <tr>
               <td>ph</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
             </tr>
             <tr>
               <td>Amoniak</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[3] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[3] : 0}</td>
             </tr>
             <tr>
               <td>Azotyn</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[4] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[4] : 0}</td>
             </tr>
             <tr>
               <td>Azotan</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[5] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[5] : 0}</td>
             </tr>
             <tr>
               <td>Fosforany</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[6] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[6] : 0}</td>
             </tr>
             <tr>
               <td>Wapń</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[7] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[7] : 0}</td>
             </tr>
             <tr>
               <td>Magnez</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[8] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[8] : 0}</td>
             </tr>
             <tr>
               <td>Chlor</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[9] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[9] : 0}</td>
             </tr>
             <tr>
               <td>Dwutlenek Węgla</td>
-              <td>123</td>
-              <td>123</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[10] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[10] : 0}</td>
             </tr>
           </tbody>
         </Table>

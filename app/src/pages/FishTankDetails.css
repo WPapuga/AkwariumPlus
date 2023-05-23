@@ -1,7 +1,9 @@
 body {
     min-height: 100vh;
+    align-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
 }
-
 body h1 {
     text-align: center;
     padding-bottom: 25px;

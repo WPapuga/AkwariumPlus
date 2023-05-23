@@ -10,8 +10,8 @@ function FishList({ fish, loading }) {
     <div className="FLFishContainer">
         {fish.map((item) => (
             <div className='FLFish' key={item.id}>
-                <Link to={`/szczegolyRyby?id=${item.id}`}><img className='FLFishImage' src={`images/${item.image}`}></img></Link>
-                <h3 className='FLFishName'>{item.name}</h3>
+                <Link to={`/szczegolyRyby?id=${item.id}`}><img className='FLFishImage' src={`images/${item.obraz}`}></img></Link>
+                <h3 className='FLFishName'>{item.gatunek}</h3>
             </div>
         ))}
     </div>
