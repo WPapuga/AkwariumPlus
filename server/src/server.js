@@ -229,8 +229,59 @@ app.get('/getFishTankDetails', (req, res) => {
         res.send(
             { 
                 id: 1, 
-                name: "Akwarium 1"
-            }
+                name: "Akwarium 1",
+                ryby:[{
+                    id: 1,
+                    name: "Bystrzyk pięknopłetwy",
+                    image: "Bystrzyk_pięknopłetwy.jpg",
+                    description: "gatunek słodkowodnej ryby z rodziny kąsaczowatych (Characidae). Hodowana w akwariach."
+                },
+                {
+                    id: 2,
+                    name: "Danio Kerra",
+                    image: "Danio_Kerra.jpg",
+                    description: "gatunek słodkowodnej ryby z rodziny karpiowatych (Cyprinidae). Bywa hodowana w akwariach."
+                }
+                ],
+                wyposazenie:[{
+                    id: 1,
+                    name: "AN NHA-25",
+                    image: "AN_NHA_25.jpg",
+                    description: "Grzałka z termostatem. Szkło QUARTZ, grzałka w pełni zanurzalna. Kontrolka ON/OFF określająca pracę grzałki."
+                },
+                    {
+                        id: 2,
+                        name: "Oase HeatUp Basis 20",
+                        image: "Oase_HeatUp_Basis_20.jpg",
+                        description: "Ogrzewanie podżwirowe - kable grzewcze Oase HeatUp Basis 20W idealnie nadają się dla wymagających roślin akwariowych, które dzięki ich zastosowaniu na dnie akwarium lepiej się rozwijają."
+                    },
+                    {
+                        id: 3,
+                        name: "EHEIM thermocontrol+ e 300",
+                        image: "EHEIM_thermocontrol_e_300.jpg",
+                        description: "EHEIM thermocontrol+ e to to pierwsza regulowana grzałka z cyfrowym sterowaniem przez WLAN."
+                    }
+                ],
+                wysokosc_cm:50,
+                szerokosc_cm:25,
+                dlugosc_cm:30,
+                parametry_wody:{
+                    ph:7.5,
+                    twardosc:5,
+                    temperatura:25,
+                    amoniak:0,
+                    azotyn:0,
+                    azotan:0,
+                    fosforany:0,
+                    wapn:0,
+                    magnez:2,
+                    chlor:1,
+                    dwutlenek_wegla:0
+                },
+                data_pomiaru:"2021-05-01 12:00:00"
+
+            },
+
         );
     }
     if (id == 2) {
