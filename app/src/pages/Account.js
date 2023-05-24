@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom'
 import './Account.css'
 
 
+function usunAkwarium(id) {
+    // fetch('http://localhost:3030/deleteFishTank?id='+id)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //     });
+    console.log(id);
+}
+
 function Account() {
   const [fishList, setFishList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,7 +25,7 @@ function Account() {
           setLoading(false);
         });
   }, []);
-  
+
 
   return (
     <body>
@@ -40,6 +49,9 @@ function Account() {
                     <Link to={`/szczegolyAkwarium?id=${item.id}`}>
                       <button>Zobacz Szczegóły</button>
                     </Link>
+                  </div>
+                  <div className='FishTankButtonContainer'>
+                          <button onClick={usunAkwarium(item.id)}>Usuń akwarium</button>
                   </div>
               </div>
             ))}

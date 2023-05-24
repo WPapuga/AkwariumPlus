@@ -67,6 +67,14 @@ const getFish= async (id) => {
         console.log(error)
     }
 }
+const delFishTank= async (id) => {
+    try {
+        const res = await pool.query(`DELETE FROM public."Akwarium" WHERE id = ${id}`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
 app.use(cors()); 
 app.use(bodyParser.json()); 
 app.use((req, res, next) => {
@@ -153,6 +161,11 @@ app.get('/getFishTank', (req, res) => {
             name: "Akwarium 4"
         }
     ]);
+});
+app.get('/deleteFishTank', async (req, res) => {
+    const id = req.query.id;
+    await delFishTank(id);
+    res.send({message: "Usunięto akwarium o id: " + id});
 });
 
 app.get('/getFishTankDetails', async (req, res) => {
