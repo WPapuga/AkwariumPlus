@@ -3,6 +3,8 @@
     padding: 100px 100px 100px 100px;
     color: black;
     margin: 0 200px 0 200px;
+    justify-content: center;
+
 }
 
 .FLFish {
@@ -14,6 +16,8 @@
     height: 250px;
     border-radius: 50%;
     transition: 1s;
+    margin: 0 20px 0 20px;
+
 }
 
 .FLFish .FLFishImage:hover {
