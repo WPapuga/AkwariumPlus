@@ -46,6 +46,11 @@ function Account() {
                     <h3 className='FishTankName'>{item.name}</h3>
                   </div>
                   <div className='FishTankButtonContainer'>
+                    <Link to={`/edycjaAkwarium?id=${item.id}`}>
+                      <button>Edytuj wyposażenie</button>
+                    </Link>
+                  </div>
+                  <div className='FishTankButtonContainer'>
                     <Link to={`/szczegolyAkwarium?id=${item.id}`}>
                       <button>Zobacz Szczegóły</button>
                     </Link>

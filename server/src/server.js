@@ -75,6 +75,7 @@ const delFishTank= async (id) => {
         console.log(error)
     }
 }
+
 app.use(cors()); 
 app.use(bodyParser.json()); 
 app.use((req, res, next) => {
@@ -299,6 +300,61 @@ app.post('/postFishTank', (req, res) => {
     console.log(data)
     res.send({message: 'Sukces'})
 });
+
+app.post('/equipmentList', async (req, res) => {
+    const { id_akwarium, id_wyposazenie, ilosc } = req.body;
+
+    try {
+
+        const query = 'INSERT INTO public."ListaWyposazenia" (id_akwarium, id_wyposazenie, ilosc) VALUES ($1, $2, $3)';
+        await pool.query(query, [id_akwarium, id_wyposazenie, ilosc]);
+
+        res.send({message: 'Sukces'})
+    } catch (error) {
+        res.send({message: 'Error'})
+    }
+});
+  
+app.delete('/equipmentList/:id_akwarium/:id_wyposazenie', async (req, res) => {
+    const id_akwarium = req.params.id_akwarium;
+    const id_wyposazenie = req.params.id_wyposazenie;
+
+    try {
+        const query = 'DELETE FROM public."ListaWyposazenia" WHERE id_akwarium = $1 AND id_wyposazenie = $2';
+        await pool.query(query, [id_akwarium, id_wyposazenie]);
+
+        res.json({ message: 'Rekordy zostały usunięte z ListyWyposazenia.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Wystąpił błąd podczas usuwania rekordów z ListyWyposazenia.' });
+    }
+});
+
+app.delete('/equipmentList/:id_akwarium', async (req, res) => {
+    const id_akwarium = req.params.id_akwarium;
+
+    try {
+      const query = 'DELETE FROM public."ListaWyposazenia" WHERE id_akwarium = $1';
+      await pool.query(query, [id_akwarium]);
+  
+      res.json({ message: 'Wszystkie listy wyposażenia zostały usunięte.' });
+    } catch (error) {
+      res.status(500).json({ error: 'Wystąpił błąd podczas usuwania list wyposażenia.' });
+    }
+  });
+
+app.get('/equipmentList/:id_akwarium', async (req, res) => {
+    const id_akwarium = req.params.id_akwarium;
+
+    try {
+        const query = 'SELECT * FROM public."ListaWyposazenia" WHERE id_akwarium = $1';
+        const result = await pool.query(query, [id_akwarium]);
+
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Wystąpił błąd podczas pobierania danych z ListyWyposazenia.' });
+    }
+});
+
 
 
 app.listen(port, () => {
