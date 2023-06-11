@@ -4,11 +4,11 @@ import './Account.css'
 
 
 function usunAkwarium(id) {
-    // fetch('http://localhost:3030/deleteFishTank?id='+id)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data);
-    //     });
+    fetch('http://localhost:3030/deleteFishTank?id='+id)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
     console.log(id);
 }
 
@@ -51,7 +51,7 @@ function Account() {
                     </Link>
                   </div>
                   <div className='FishTankButtonContainer'>
-                          <button onClick={usunAkwarium(item.id)}>Usuń akwarium</button>
+                          <button onClick={() => usunAkwarium(item.id)}>Usuń akwarium</button>
                   </div>
               </div>
             ))}
