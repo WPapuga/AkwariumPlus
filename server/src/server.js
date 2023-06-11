@@ -304,7 +304,6 @@ app.post('/postFishTank', (req, res) => {
 app.put('/akwarium/:id/wyposazenie', async (req, res) => {
     const id_akwarium = req.params.id;
     const { wyposazenie } = req.body;
-    console.log(wyposazenie);
     try {
       const query = 'UPDATE public."Akwarium" SET wyposazenie = $1 WHERE id = $2';
       await pool.query(query, [wyposazenie, id_akwarium]);
@@ -314,6 +313,26 @@ app.put('/akwarium/:id/wyposazenie', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas aktualizacji pola "wyposazenie".' });
     }
   });
+
+// app.get('/akwarium/:id/wyposazenie', async (req, res) => {
+// const id_akwarium = req.params.id;
+// console.log("get:" + id_akwarium);
+// try {
+//     const query = 'SELECT * FROM public."Akwarium" WHERE id = $1';
+//     const result = await pool.query(query, [id_akwarium]);
+
+//     if (result.rows.length === 0) {
+//     return res.status(404).json({ error: 'Akwarium o podanym id nie istnieje.' });
+//     }
+
+//     const wyposazenieJSON = result.rows[0].wyposazenie;
+//     const wyposazenie = JSON.parse(wyposazenieJSON);
+
+//     res.json(wyposazenie);
+// } catch (error) {
+//     res.status(500).json({ error: 'Wystąpił błąd podczas pobierania wyposażenia.' });
+// }
+// });
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)

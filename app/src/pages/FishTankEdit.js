@@ -22,16 +22,16 @@ async function setEquipmentLists(id_akwarium,wyposazenie) {
     });
 }
 
-// async function getEquipmentLists(id_akwarium) {
-//   return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`)
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log(data);
-//   })
-//   .catch(error => {
-//     console.error(error);
-//   });
-// }
+async function getEquipmentLists(id_akwarium) {
+  return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
 
 function FishTankCreate() {
     const location = useLocation();
@@ -64,6 +64,11 @@ function FishTankCreate() {
           setEquipmentList(data);
           setLoading(false);
         });
+      //   fetch(`http://localhost:3030/akwarium/${id}/wyposazenie`)
+      // .then(response => response.json())
+      // .then(data => {
+      //   console.log(data);
+      // });
   }, []);
   const indexOfLastEquipment = currentPage * equipmentPerPage;
   const indexOfFirstEquipment = indexOfLastEquipment - equipmentPerPage;
