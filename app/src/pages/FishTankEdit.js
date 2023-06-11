@@ -7,68 +7,38 @@ import Table from 'react-bootstrap/Table'
 import { useNavigate } from 'react-router-dom';
 import './FishTankEdit.css'
 
-async function postEquipmentList(details) {
-  console.log(details);
-  return fetch("http://localhost:3030/equipmentList", {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(details)
-}).then(data => data.json())
-}
-
-async function getEquipmentList(id_akwarium) {
-  console.log(id_akwarium);
-  return fetch(`http://localhost:3030/equipmentList/${id_akwarium}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-}
-
-async function deleteEquipmentList(id_akwarium,id_wyposazenie) {
-  console.log(id_akwarium + ":" + id_wyposazenie);
-  return fetch(`http://localhost:3030/equipmentList/${id_akwarium}/${id_wyposazenie}`, {
-    method: 'DELETE',
+async function setEquipmentLists(id_akwarium,wyposazenie) {
+  console.log(wyposazenie);
+  return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-}
-
-async function deleteAllEquipmentLists(id_akwarium) {
-  console.log(id_akwarium);
-  return fetch(`http://localhost:3030/equipmentList/${id_akwarium}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    body: JSON.stringify( wyposazenie )
   })
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
     .catch(error => {
       console.error(error);
     });
 }
+
+// async function getEquipmentLists(id_akwarium) {
+//   return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`)
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(error => {
+//     console.error(error);
+//   });
+// }
 
 function FishTankCreate() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
     const navigate = useNavigate();
-    const [equipmentList, setequipmentList] = useState([])
+    const [equipmentList, setEquipmentList] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [equipmentPerPage, setEquipmentPerPage] = useState(3)
@@ -91,7 +61,7 @@ function FishTankCreate() {
       fetch('http://localhost:3030/getEquipment')
         .then(response => response.json())
         .then(data => {
-          setequipmentList(data);
+          setEquipmentList(data);
           setLoading(false);
         });
   }, []);
@@ -168,24 +138,14 @@ function FishTankCreate() {
   };
   const createEquipmentList = async e => {
     e.preventDefault();
-    await deleteAllEquipmentLists(id);
-    currentRightEquipment.map(async (rightEquipment) => {
-      const res = await postEquipmentList({
-        id_akwarium: id,
-        id_wyposazenie: rightEquipment.id,
-        ilosc: rightEquipment.quantity
-      });
-      console.log(res);
-      setBoolSend(res);
-    });
-    if(boolSend.message == "Sukces"){
+    const res = await setEquipmentLists(id,rightEquipmentList);
+    if(res.message == "Pole \"wyposazenie\" zostało zaktualizowane."){
       alert("Edytowano wyposażenie")
       navigate('/konto', { replace: true });
       window.location.reload(false);
     } else {
       alert("Błąd")
     }
-    // await getEquipmentList(id);
 } 
 
   return (

@@ -301,61 +301,19 @@ app.post('/postFishTank', (req, res) => {
     res.send({message: 'Sukces'})
 });
 
-app.post('/equipmentList', async (req, res) => {
-    const { id_akwarium, id_wyposazenie, ilosc } = req.body;
-
+app.put('/akwarium/:id/wyposazenie', async (req, res) => {
+    const id_akwarium = req.params.id;
+    const { wyposazenie } = req.body;
+    console.log(wyposazenie);
     try {
-
-        const query = 'INSERT INTO public."ListaWyposazenia" (id_akwarium, id_wyposazenie, ilosc) VALUES ($1, $2, $3)';
-        await pool.query(query, [id_akwarium, id_wyposazenie, ilosc]);
-
-        res.send({message: 'Sukces'})
-    } catch (error) {
-        res.send({message: 'Error'})
-    }
-});
+      const query = 'UPDATE public."Akwarium" SET wyposazenie = $1 WHERE id = $2';
+      await pool.query(query, [wyposazenie, id_akwarium]);
   
-app.delete('/equipmentList/:id_akwarium/:id_wyposazenie', async (req, res) => {
-    const id_akwarium = req.params.id_akwarium;
-    const id_wyposazenie = req.params.id_wyposazenie;
-
-    try {
-        const query = 'DELETE FROM public."ListaWyposazenia" WHERE id_akwarium = $1 AND id_wyposazenie = $2';
-        await pool.query(query, [id_akwarium, id_wyposazenie]);
-
-        res.json({ message: 'Rekordy zostały usunięte z ListyWyposazenia.' });
+      res.json({ message: 'Pole "wyposazenie" zostało zaktualizowane.' });
     } catch (error) {
-        res.status(500).json({ error: 'Wystąpił błąd podczas usuwania rekordów z ListyWyposazenia.' });
-    }
-});
-
-app.delete('/equipmentList/:id_akwarium', async (req, res) => {
-    const id_akwarium = req.params.id_akwarium;
-
-    try {
-      const query = 'DELETE FROM public."ListaWyposazenia" WHERE id_akwarium = $1';
-      await pool.query(query, [id_akwarium]);
-  
-      res.json({ message: 'Wszystkie listy wyposażenia zostały usunięte.' });
-    } catch (error) {
-      res.status(500).json({ error: 'Wystąpił błąd podczas usuwania list wyposażenia.' });
+      res.status(500).json({ error: 'Wystąpił błąd podczas aktualizacji pola "wyposazenie".' });
     }
   });
-
-app.get('/equipmentList/:id_akwarium', async (req, res) => {
-    const id_akwarium = req.params.id_akwarium;
-
-    try {
-        const query = 'SELECT * FROM public."ListaWyposazenia" WHERE id_akwarium = $1';
-        const result = await pool.query(query, [id_akwarium]);
-
-        res.json(result.rows);
-    } catch (error) {
-        res.status(500).json({ error: 'Wystąpił błąd podczas pobierania danych z ListyWyposazenia.' });
-    }
-});
-
-
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
