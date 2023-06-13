@@ -18,7 +18,7 @@ function Account() {
   useEffect(() => {
       setLoading(true);
       console.log(sessionStorage.getItem("userId"));
-      fetch('http://localhost:3030/getFishTank?user_id='+sessionStorage.getItem("userId"))
+      fetch('http://localhost:3030/getFishTank?id='+sessionStorage.getItem("id"))
         .then(response => response.json())
         .then(data => {
           setFishList(data);
