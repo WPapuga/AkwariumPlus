@@ -17,7 +17,8 @@ function Account() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
       setLoading(true);
-      fetch('http://localhost:3030/getFishTank')
+      console.log(sessionStorage.getItem("userId"));
+      fetch('http://localhost:3030/getFishTank?user_id='+sessionStorage.getItem("userId"))
         .then(response => response.json())
         .then(data => {
           setFishList(data);
@@ -43,7 +44,7 @@ function Account() {
             {fishList.map((item) => (
               <div className='FishTank' key={item.id}>
                   <div className='FishTankNameContainer'>
-                    <h3 className='FishTankName'>{item.name}</h3>
+                    <h3 className='FishTankName'>{item.nazwa}</h3>
                   </div>
                   <div className='FishTankButtonContainer'>
                     <Link to={`/edycjaAkwarium?id=${item.id}`}>

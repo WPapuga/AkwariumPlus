@@ -31,6 +31,7 @@ export default function SignIn() {
         setLoginStatus(res.message);
         if(res.message == "Sukces"){
           sessionStorage.setItem("isLogged", true);
+          sessionStorage.setItem("userId", res.id);
           navigate('/konto', { replace: true });
           window.location.reload(false);
         } else {
