@@ -162,10 +162,8 @@ app.get('/getFishTank', async (req, res) => {
     const query = 'SELECT id, nazwa FROM public."Akwarium"';
     const result = await pool.query(query);
 
-    // Przekształcenie wyników na format JSON
     const listaAkwarium = result.rows.map(row => ({ id: row.id, name: row.nazwa }));
 
-    // Zwrócenie listy akwarium jako odpowiedź
     res.json(listaAkwarium);
 });
 app.get('/deleteFishTank', async (req, res) => {
@@ -301,12 +299,13 @@ app.get('/getFishTankDetails', async (req, res) => {
 app.post('/postFishTank',async (req, res) => {
     try {
         // Odczytanie danych z ciała żądania
-        const { name, width, height, depth, water, fish, user_id, date } = req.body;
-        const fishJSON = JSON.stringify(fish);
-        const waterJSON = JSON.stringify(water);
+        const { name, width, height, depth, water, fishes, user_id, date } = req.body;
+        
+        console.log("dane "+fishes);
         // Wstawienie danych do tabeli Akwarium
-        const query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, parametry_wody, data_pomiaru, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-        const values = [name, width, height, depth, (width*height*depth)/1000, date, fishJSON, waterJSON, date, user_id];
+        const fishesArray = JSON.parse(fishes);
+        const query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, data_pomiaru, user_id,parametry_wody) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+        const values = [name, width, height, depth, (width*height*depth)/1000, date, fishesArray, date, user_id, water];
         console.log(values);
         await pool.query(query, values);
         

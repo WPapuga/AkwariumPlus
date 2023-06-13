@@ -149,12 +149,20 @@ function FishTankCreate() {
   };
   const createFishTank = async e => {
     e.preventDefault();
+    const fishTrans = [];
+    rightFishList.map((fish)=>{
+            fishTrans.push({
+                fish_id: fish.id,
+                quantity: fish.quantity
+            })
+        })
+    console.log(fishTrans);
     const res = await postFishTank({
       name: fishTankName,
       width: widthDim,
       height: heightDim,
       depth: depthDim,
-      water: {
+      water: JSON.stringify({
         tempeture: wsTemp,
         ph: wsPh,
         nitrate: wsNitrate,
@@ -166,8 +174,8 @@ function FishTankCreate() {
         calcium: wsCalcium,
         magnesium: wsMagnesium,
         co2: wsCo2
-      },
-      fish: rightFishList,
+      }),
+      fishes: JSON.stringify(fishTrans),
       user_id: sessionStorage.getItem("id"),
       date: formatDate(Date.now())
     });
