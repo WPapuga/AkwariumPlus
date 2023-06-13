@@ -128,13 +128,13 @@ app.post('/register', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     let hashedPassword = await bcrypt.hash(password, 8);
-    pool.query(`INSERT INTO users(email, password) VALUES ('${email}', '${hashedPassword}')`, (err, response) => {
+    pool.query(`INSERT INTO users(email, password) VALUES ('${email}', '${hashedPassword}') RETURNING id`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Użytkownik o poadnym e-mailu już istnieje'});
         }
         else {
-            res.send({message: 'Sukces'});
+            res.send({message: 'Sukces', id: response.rows[0].id});
         }
     })
 });
