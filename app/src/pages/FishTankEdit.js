@@ -9,12 +9,19 @@ import './FishTankEdit.css'
 
 async function setEquipmentLists(id_akwarium,wyposazenie) {
   console.log(wyposazenie);
+  const sen = []
+  wyposazenie.map((wypos)=>{
+    sen.push({
+      id: wypos.id,
+      
+    });
+  });
   return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( wyposazenie )
+    body: JSON.stringify()
   })
     .then(response => response.json())
     .catch(error => {

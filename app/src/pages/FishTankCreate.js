@@ -152,8 +152,8 @@ function FishTankCreate() {
     const fishTrans = [];
     rightFishList.map((fish)=>{
             fishTrans.push({
-                fish_id: fish.id,
-                quantity: fish.quantity
+                idgatunku: fish.id,
+                ilosc: fish.quantity
             })
         })
     console.log(fishTrans);

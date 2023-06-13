@@ -183,29 +183,18 @@ app.get('/getFishTankDetails', async (req, res) => {
         const fishtank = temp.rows[0];
         let tempfishes=[];
         if(fishtank.ryby != null) {
-            let ryby = fishtank.ryby.substring(2, fishtank.ryby.length - 2)
-            ryby = ryby.split('(');
-            for (let i = 0; i < ryby.length; i++) {
-                ryby[i] = ryby[i].split(',');
-                if (ryby[i][1]) {
-                    console.log(ryby[i][1]);
-                    const fish = await getFish((ryby[i][1]).toString());
+            for (let i = 0; i < fishtank.ryby.length; i++) {
+                    const fish = await getFish(fishtank.ryby[i].idgatunku);
                     tempfishes.push(fish.rows[0]);
-                }
             }
         }
         console.log(fishtank);
     let tempEquipment = [];
     if(fishtank.wyposazenie != null) {
-            let equipment = fishtank.wyposazenie.id.split(',');
-            for (let i = 0; i < equipment.length; i++) {
-                const eq = await getEquipment((equipment[i]).toString());
+            for (let i = 0; i < fishtank.wyposazenie.length; i++) {
+                const eq = await getEquipment(fishtank.wyposazenie[i].id);
                 tempEquipment.push(eq.rows[0]);
             }
-        }
-        if(fishtank.parametry_wody != null) {
-            fishtank.parametry_wody = fishtank.parametry_wody.substring(1, fishtank.parametry_wody.length - 1);
-            fishtank.parametry_wody = fishtank.parametry_wody.split(',');
         }
         fishtank.ryby = tempfishes;
         fishtank.wyposazenie = tempEquipment;
@@ -222,7 +211,7 @@ app.post('/postFishTank',async (req, res) => {
         console.log("dane "+fishes);
         // Wstawienie danych do tabeli Akwarium
         const fishesArray = JSON.parse(fishes);
-        const query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, data_pomiaru, user_id,parametry_wody) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+        const query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, data_pomiaru, user_id, parametry_wody) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
         const values = [name, width, height, depth, (width*height*depth)/1000, date, fishesArray, date, user_id, water];
         console.log(values);
         await pool.query(query, values);
@@ -237,10 +226,11 @@ app.post('/postFishTank',async (req, res) => {
 
 app.put('/akwarium/:id/wyposazenie', async (req, res) => {
     const id_akwarium = req.params.id;
-    const { wyposazenie } = req.body;
+    const wyposazenie = req.body;
     try {
+        const wyposazenieJSON = JSON.parse(wyposazenie);
         const query = 'UPDATE public."Akwarium" SET wyposazenie = $1 WHERE id = $2';
-        await pool.query(query, [wyposazenie, id_akwarium]);
+        await pool.query(query, [wyposazenieJSON, id_akwarium]);
 
         res.json({ message: 'Pole "wyposazenie" zostało zaktualizowane.' });
     } catch (error) {
