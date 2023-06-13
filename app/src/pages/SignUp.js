@@ -29,6 +29,7 @@ export default function SignUp() {
         setSignUpStatus(res.message);
         if(res.message == "Sukces"){
           sessionStorage.setItem("isLogged", true);
+          sessionStorage.setItem("id", res.id);
           navigate('/konto', { replace: true });
           window.location.reload(false);
         } else {
