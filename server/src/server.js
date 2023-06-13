@@ -76,14 +76,6 @@ const delFishTank= async (id) => {
         console.log(error)
     }
 }
-const getUserFishTanks= async (id) => {
-    try {
-        const res = await pool.query(`SELECT * FROM public."Akwarium" WHERE user_id = ${id}`)
-        return res;
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 app.use(cors()); 
 app.use(bodyParser.json()); 
@@ -110,7 +102,7 @@ app.post('/login', async (req, res) => {
             if (response.rows.length === 1)
             {
                 if(bcrypt.compareSync(password, response.rows[0].password))
-                    res.send({message: 'Sukces',id : response.rows[0].id});}
+                    res.send({message: 'Sukces'});}
             else res.send({message: 'Zła kombinacja email/hasło'});
         }
     })
@@ -156,11 +148,26 @@ app.get('/getFishDetails', async (req, res) => {
     res.send(temp.rows[0]);
 });
 
-app.get('/getFishTank', async (req, res) => {
+app.get('/getFishTank', (req, res) => {
     console.log("Akwaria");
-    const id = req.query.user_id;
-    const aquariums = await getUserFishTanks(id);
-    res.send(aquariums.rows);
+    res.send([
+        { 
+            id: 1, 
+            name: "Akwarium 1"
+        },
+        { 
+            id: 2, 
+            name: "Akwarium 2"
+        },
+        { 
+            id: 3, 
+            name: "Akwarium 3"
+        },
+        { 
+            id: 4, 
+            name: "Akwarium 4"
+        }
+    ]);
 });
 app.get('/deleteFishTank', async (req, res) => {
     const id = req.query.id;
