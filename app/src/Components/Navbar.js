@@ -5,13 +5,16 @@ import "./Navbar.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function Greeting(props) {
+    const navigate = useNavigate();
     const isLoggedIn = props.isLoggedIn;
     const handleLogout = () => {
       toast.success('Wylogowano pomyślnie!');
-      sessionStorage.setItem('isLogged', false);
-      setTimeout(function(){ window.location.reload(false); }, 5000);
+      setTimeout(function(){  sessionStorage.setItem('isLogged', false);
+                              navigate('/', { replace: true }); }, 5000);
     };
     return ( 
         <div className="Navbar">
