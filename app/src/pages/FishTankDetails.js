@@ -55,7 +55,7 @@ function FishTankDetails() {
 
   return (
       <body>
-          <h1>Akwarium {id}: {fishTank.name}</h1>
+          <h1>Akwarium {id}: {fishTank.nazwa}</h1>
           <div className="DimensionsContainer">
             <div className="DimensionsContainerInner">
               <img className="FishTankImg" src="./images/fishTank.jpg" alt="Fish Tank"></img>
