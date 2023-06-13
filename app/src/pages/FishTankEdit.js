@@ -8,20 +8,21 @@ import { useNavigate } from 'react-router-dom';
 import './FishTankEdit.css'
 
 async function setEquipmentLists(id_akwarium,wyposazenie) {
-  console.log(wyposazenie);
+  console.log(id_akwarium);
   const sen = []
   wyposazenie.map((wypos)=>{
     sen.push({
       id: wypos.id,
-      
+      ilosc: wypos.quantity
     });
   });
+  console.log(sen);
   return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify()
+    body: JSON.stringify(sen)
   })
     .then(response => response.json())
     .catch(error => {

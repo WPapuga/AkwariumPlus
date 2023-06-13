@@ -225,13 +225,12 @@ app.post('/postFishTank',async (req, res) => {
 });
 
 app.put('/akwarium/:id/wyposazenie', async (req, res) => {
-    const id_akwarium = req.params.id;
-    const wyposazenie = req.body;
     try {
-        const wyposazenieJSON = JSON.parse(wyposazenie);
+        const id_akwarium = req.params.id;
+        const wyposazenie = req.body;
+        
         const query = 'UPDATE public."Akwarium" SET wyposazenie = $1 WHERE id = $2';
-        await pool.query(query, [wyposazenieJSON, id_akwarium]);
-
+        await pool.query(query, [wyposazenie, id_akwarium]);
         res.json({ message: 'Pole "wyposazenie" zostało zaktualizowane.' });
     } catch (error) {
         res.status(500).json({ error: 'Wystąpił błąd podczas aktualizacji pola "wyposazenie".' });
