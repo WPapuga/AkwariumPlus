@@ -52,7 +52,7 @@ function FishTankDetails() {
   }
 
   console.log(parameters);
-
+  console.log(fishTank);
   return (
       <body>
           <h1>Akwarium {id}: {fishTank.nazwa}</h1>
@@ -99,47 +99,47 @@ function FishTankDetails() {
                 <tbody>
                 <tr>
                   <td>Temperatura</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[0]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.tempeture}</td>
                 </tr>
                 <tr>
                   <td>Twardość wody</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[1]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.hardness}</td>
                 </tr>
                 <tr>
                   <td>ph</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[2]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.ph}</td>
                 </tr>
                 <tr>
                   <td>Amoniak</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[3]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.ammonia}</td>
                 </tr>
                 <tr>
                   <td>Azotyn</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[4]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.nitrite}</td>
                 </tr>
                 <tr>
                   <td>Azotan</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[5]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.nitrate}</td>
                 </tr>
                 <tr>
                   <td>Fosforany</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[6]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.phosphates}</td>
                 </tr>
                 <tr>
                   <td>Wapń</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[7]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.calcium}</td>
                 </tr>
                 <tr>
                   <td>Magnez</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[8]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.magnesium}</td>
                 </tr>
                 <tr>
                   <td>Chlor</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[9]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.chlorine}</td>
                 </tr>
                 <tr>
                   <td>Dwutlenek Węgla</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody[10]}</td>
+                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.co2}</td>
                 </tr>
                 </tbody>
               </Table>
