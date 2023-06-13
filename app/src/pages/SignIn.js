@@ -29,12 +29,15 @@ export default function SignIn() {
           password
         });
         setLoginStatus(res.message);
-        if(res.message == "Sukces"){
+        if(res.message === "Sukces"){
           sessionStorage.setItem("isLogged", true);
+          sessionStorage.setItem("id", res.id);
+          console.log(sessionStorage.getItem("id"));
           navigate('/konto', { replace: true });
           window.location.reload(false);
         } else {
           sessionStorage.setItem("isLogged", false);
+          
         }
     } 
     return (

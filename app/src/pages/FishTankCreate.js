@@ -17,6 +17,20 @@ async function postFishTank(details) {
 }).then(data => data.json())
 }
 
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 function FishTankCreate() {
   const navigate = useNavigate();
   const [fishList, setFishList] = useState([])
@@ -136,7 +150,7 @@ function FishTankCreate() {
   const createFishTank = async e => {
     e.preventDefault();
     const res = await postFishTank({
-      fishTankName,
+      name: fishTankName,
       width: widthDim,
       height: heightDim,
       depth: depthDim,
@@ -154,7 +168,8 @@ function FishTankCreate() {
         co2: wsCo2
       },
       fish: rightFishList,
-      date: Date.now()
+      user_id: sessionStorage.getItem("id"),
+      date: formatDate(Date.now())
     });
     if(res.message == "Sukces"){
       alert("Utworzono akwarium")
