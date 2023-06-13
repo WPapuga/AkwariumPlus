@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const pg = require("pg")
+const bcrypt = require("bcryptjs");
+
 require('dotenv').config()
 
 const app = express()
@@ -50,7 +52,6 @@ const getAllEquipment= async () => {
         console.log(error)
     }
 }
-
 const getEquipment= async (id) => {
     try {
         const res = await pool.query(`SELECT * FROM public."Wyposazenie" WHERE id = ${id}`)
@@ -88,24 +89,29 @@ app.get('/', (req, res) => {
     res.send("Hello world");
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    pool.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`, (err, response) => {
+    pool.query(`SELECT *
+                FROM users
+                WHERE email = '${email}'`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Błąd połączenia'});
-        }
-        else {
-            if(response.rows.length == 1) res.send({message: 'Sukces'});
+        } else {
+            if (response.rows.length === 1)
+            {
+                if(bcrypt.compareSync(password, response.rows[0].password))
+                    res.send({message: 'Sukces'});}
             else res.send({message: 'Zła kombinacja email/hasło'});
         }
     })
 });
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    pool.query(`INSERT INTO users(email, password) VALUES ('${email}', '${password}')`, (err, response) => {
+    let hashedPassword = await bcrypt.hash(password, 8);
+    pool.query(`INSERT INTO users(email, password) VALUES ('${email}', '${hashedPassword}')`, (err, response) => {
         if (err) {
             console.log(err);
             res.send({message: 'Użytkownik o poadnym e-mailu już istnieje'});
