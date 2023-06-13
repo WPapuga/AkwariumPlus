@@ -184,11 +184,13 @@ app.get('/getFishTankDetails', async (req, res) => {
         let tempfishes=[];
         if(fishtank.ryby != null) {
             for (let i = 0; i < fishtank.ryby.length; i++) {
-                    const fish = await getFish(fishtank.ryby[i].idgatunku);
+                    let fish = await getFish(fishtank.ryby[i].idgatunku);
+                    fish.rows[0].quantity = fishtank.ryby[i].ilosc;
+                    console.log(fish.rows[0])
                     tempfishes.push(fish.rows[0]);
             }
         }
-        console.log(fishtank);
+        // console.log(fishtank);
     let tempEquipment = [];
     if(fishtank.wyposazenie != null) {
             for (let i = 0; i < fishtank.wyposazenie.length; i++) {
