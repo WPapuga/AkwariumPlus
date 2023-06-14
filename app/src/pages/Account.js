@@ -10,6 +10,7 @@ function usunAkwarium(id) {
             console.log(data);
         });
     console.log(id);
+    window.location.reload();
 }
 
 function Account() {
