@@ -49,13 +49,13 @@ function FishDetails() {
             </tr>
             <tr>
               <td>Twardość wody</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
-              <td>{fish.parametrywodymax ? fish.parametrywodymax[1] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[2] : 0}</td>
             </tr>
             <tr>
               <td>ph</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
-              <td>{fish.parametrywodymax ? fish.parametrywodymax[2] : 0}</td>
+              <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[1] : 0}</td>
             </tr>
             <tr>
               <td>Amoniak</td>
