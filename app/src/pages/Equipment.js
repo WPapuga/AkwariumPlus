@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import FishList from "../Components/FishList";
+import EqList from "../Components/EqList";
 import ReactPaginate from "react-paginate";
 
 
@@ -67,11 +67,12 @@ export default function Equipment() {
     //     setPage3(selectedPage.selected+1);
     // }
 
+    console.log(filtersList);
     return (
         <div className="App">
             <body className="FishesBody">
             <h1>Wyposazenie</h1>
-            <FishList fish={currentFilter} loading={loading}/>
+            <EqList eq={currentFilter} loading={loading}/>
             <ReactPaginate
                 onPageChange={handlePageChange1}
                 pageCount={Math.ceil(filtersList.length / fishPerPage)}

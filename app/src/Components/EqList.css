@@ -1,4 +1,4 @@
-.FLFishContainer {
+.EQFishContainer {
     display: flex; 
     padding: 100px 100px 100px 100px;
     color: black;
@@ -7,13 +7,11 @@
 
 }
 
-.FLFish {
-    justify-content: center;
-    align-items: center;
+.EQFish {
     flex: 33%;
 }
 
-.FLFish .FLFishImage {
+.EQFish .EQFishImage {
     width: 250px;
     height: 250px;
     border-radius: 50%;
@@ -22,12 +20,12 @@
 
 }
 
-.FLFish .FLFishImage:hover {
+.EQFish .EQFishImage:hover {
     transform:scale(1.3);
     z-index: 2;
 }
 
-.FLFish .FLFishName {
+.EQFish .EQFishName {
     padding-top: 50px;
     color: black;
 }

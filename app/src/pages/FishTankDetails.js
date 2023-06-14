@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
 import FishList from "../Components/FishList";
+import EqList from "../Components/EqList";
 import ReactPaginate from "react-paginate";
 import './FishTankDetails.css'
 import Table from "react-bootstrap/Table";
@@ -80,7 +81,7 @@ function FishTankDetails() {
               activeLinkClassName={'active'}
           />
           <h2>Twoje wyposażenie: </h2>
-          <FishList fish={currentEquipment} loading={loading}/>
+          <EqList eq={currentEquipment} loading={loading}/>
           <ReactPaginate
               onPageChange={handlePageChange2}
               pageCount={Math.ceil(equipment.length / fishPerPage)}
