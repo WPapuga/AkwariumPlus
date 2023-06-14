@@ -44,20 +44,15 @@ function Account() {
           <div className="FishTankContainer">
             {fishList.map((item) => (
               <div className='FishTank' key={item.id}>
-                  <div className='FishTankNameContainer'>
-                    <h3 className='FishTankName'>{item.nazwa}</h3>
-                  </div>
-                  <div className='FishTankButtonContainer'>
-                    <Link to={`/edycjaAkwarium?id=${item.id}`}>
-                      <button>Edytuj wyposażenie</button>
-                    </Link>
-                  </div>
                   <div className='FishTankButtonContainer'>
                     <Link to={`/szczegolyAkwarium?id=${item.id}`}>
                       <button>Zobacz Szczegóły</button>
                     </Link>
                   </div>
-                  <div className='FishTankButtonContainer'>
+                  <div className='FishTankNameContainer'>
+                    <h3 className='FishTankName'>{item.nazwa}</h3>
+                  </div>
+                  <div className='FishTankButtonContainerDelete'>
                           <button onClick={() => usunAkwarium(item.id)}>Usuń akwarium</button>
                   </div>
               </div>

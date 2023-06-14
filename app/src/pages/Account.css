@@ -61,6 +61,7 @@ body {
     justify-content: right;
 }
 
+
 .FishTank button {
     border-style: none;
     background-color: #0A142F;
@@ -76,4 +77,10 @@ body {
     color: white;
     border-color: #30CB70;
     background-color: #30CB70;
+}
+
+.FishTankButtonContainerDelete button:hover {
+    color: white;
+    border-color: #FF6961;
+    background-color: #FF6961;
 }
