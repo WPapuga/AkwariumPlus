@@ -40,62 +40,62 @@ function FishDetails() {
             <tr>
               <td></td>
               <td>Minimum</td>
-              <td>Minimum</td>
+              <td>Maksumum</td>
             </tr>
             <tr>
               <td>Temperatura</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[0] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[0] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[0] : 0}</td>
             </tr>
             <tr>
               <td>Twardość wody</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[1] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[1] : 0}</td>
             </tr>
             <tr>
               <td>ph</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[2] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[2] : 0}</td>
             </tr>
             <tr>
               <td>Amoniak</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[3] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[3] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[3] : 0}</td>
             </tr>
             <tr>
               <td>Azotyn</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[4] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[4] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[4] : 0}</td>
             </tr>
             <tr>
               <td>Azotan</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[5] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[5] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[5] : 0}</td>
             </tr>
             <tr>
               <td>Fosforany</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[6] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[6] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[6] : 0}</td>
             </tr>
             <tr>
               <td>Wapń</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[7] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[7] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[7] : 0}</td>
             </tr>
             <tr>
               <td>Magnez</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[8] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[8] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[8] : 0}</td>
             </tr>
             <tr>
               <td>Chlor</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[9] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[9] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[9] : 0}</td>
             </tr>
             <tr>
               <td>Dwutlenek Węgla</td>
               <td>{fish.parametrywodymin ? fish.parametrywodymin[10] : 0}</td>
-              <td>{fish.parametrywodymin ? fish.parametrywodymin[10] : 0}</td>
+              <td>{fish.parametrywodymax ? fish.parametrywodymax[10] : 0}</td>
             </tr>
           </tbody>
         </Table>
