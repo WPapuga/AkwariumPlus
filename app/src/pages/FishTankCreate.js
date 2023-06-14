@@ -52,17 +52,17 @@ function FishTankCreate() {
   const [heightDim, setHeightDim] = useState('')
   const [depthDim, setDepthDim] = useState('')
 
-  const [wsTemp, setWsTemp] = useState('')
-  const [wsPh, setWsPh] = useState('')
-  const [wsNitrate, setWsNitrate] = useState('')
-  const [wsNitrite, setWsNitrite] = useState('')
-  const [wsHardness, setWsHardness] = useState('')
-  const [wsAmmonia, setWsAmmonia] = useState('')
-  const [wsChlorine, setWsChlorine] = useState('')
-  const [wsPhosphates, setWsPhosphates] = useState('')
-  const [wsCalcium, setWsCalcium] = useState('')
-  const [wsMagnesium, setWsMagnesium] = useState('')
-  const [wsCo2, setWsCo2] = useState('')
+  const [wsTemp, setWsTemp] = useState(0)
+  const [wsPh, setWsPh] = useState(0)
+  const [wsNitrate, setWsNitrate] = useState(0)
+  const [wsNitrite, setWsNitrite] = useState(0)
+  const [wsHardness, setWsHardness] = useState(0)
+  const [wsAmmonia, setWsAmmonia] = useState(0)
+  const [wsChlorine, setWsChlorine] = useState(0)
+  const [wsPhosphates, setWsPhosphates] = useState(0)
+  const [wsCalcium, setWsCalcium] = useState(0)
+  const [wsMagnesium, setWsMagnesium] = useState(0)
+  const [wsCo2, setWsCo2] = useState(0)
 
 
 
@@ -162,19 +162,17 @@ function FishTankCreate() {
       width: widthDim,
       height: heightDim,
       depth: depthDim,
-      water: JSON.stringify({
-        tempeture: wsTemp,
-        ph: wsPh,
-        nitrate: wsNitrate,
-        nitrite: wsNitrite,
-        hardness: wsHardness,
-        ammonia: wsAmmonia,
-        chlorine: wsChlorine,
-        phosphates: wsPhosphates,
-        calcium: wsCalcium,
-        magnesium: wsMagnesium,
-        co2: wsCo2
-      }),
+      temperature: wsTemp,
+      ph: wsPh,
+      nitrate: wsNitrate,
+      nitrite: wsNitrite,
+      hardness: wsHardness,
+      ammonia: wsAmmonia,
+      chlorine: wsChlorine,
+      phosphates: wsPhosphates,
+      calcium: wsCalcium,
+      magnesium: wsMagnesium,
+      co2: wsCo2,
       fishes: JSON.stringify(fishTrans),
       user_id: sessionStorage.getItem("id"),
       date: formatDate(Date.now())

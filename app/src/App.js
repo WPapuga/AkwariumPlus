@@ -12,6 +12,7 @@ import Footer from "./Components/Footer";
 import FishTankDetails from "./pages/FishTankDetails";
 import FishTankCreate from "./pages/FishTankCreate";
 import FishTankEdit from "./pages/FishTankEdit";
+import EditWater from "./pages/EditWater";
 import { Route, Routes } from "react-router-dom";
 
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/szczegolyAkwarium" element={ <FishTankDetails/> } />
         <Route path="/edycjaAkwarium" element={ <FishTankEdit/> } />
         <Route path="/tworzenie" element={ <FishTankCreate/> } />
+        <Route path="/dodajwode" element={ <EditWater/> } />
+
 
       </Routes>
         <Footer />

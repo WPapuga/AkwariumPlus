@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import './FishTankDetails.css'
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
+import { Link } from 'react-router-dom'
 
 
 function FishTankDetails() {
@@ -17,9 +18,13 @@ function FishTankDetails() {
   const [fishList, setFishList] = useState([]);
   const [page1, setPage1] = useState(1);
   const [page2, setPage2] = useState(1);
+  const [page3, setPage3] = useState(1);
   const [fishPerPage, setFishPerPage] = useState(3);
+  const [waterPerPage, setWaterPerPage] = useState(1);
   const [parameters, setParameters] = useState([]);
   const [equipment, setEquipment] = useState([]);
+  const [waterSpecs, setWaterSpecs] = useState([]);
+
 
 
   useEffect(() => {
@@ -33,6 +38,7 @@ function FishTankDetails() {
           console.log(data.ryby)
           setParameters(data.parametry_wody);
           setEquipment(data.wyposazenie);
+          setWaterSpecs(data.woda);
           setLoading(false);
         });
   }, [])
@@ -44,6 +50,10 @@ function FishTankDetails() {
   const indexOfFirstEquipment = indexOfLastEquipment - fishPerPage;
   const currentEquipment = equipment.slice(indexOfFirstEquipment, indexOfLastEquipment);
 
+  const indexOfLastWater = page3 * waterPerPage;
+  const indexOfFirstWater = indexOfLastWater - waterPerPage;
+  const currentWater = waterSpecs.slice(indexOfFirstWater, indexOfLastWater);
+
   function handlePageChange1(selectedPage) {
     setPage1(selectedPage.selected+1)
   }
@@ -52,8 +62,10 @@ function FishTankDetails() {
     setPage2(selectedPage.selected+1);
   }
 
-  console.log(parameters);
-  console.log(fishTank);
+  function handlePageChange3(selectedPage) {
+    setPage3(selectedPage.selected+1);
+  }
+
   return (
       <body>
           <h1>Akwarium {id}: {fishTank.nazwa}</h1>
@@ -80,6 +92,12 @@ function FishTankDetails() {
               nextLinkClassName={'next-navigation-button'}
               activeLinkClassName={'active'}
           />
+          <div className='EditButton'>
+            <Link to={`/edycjaAkwarium?id=${id}`}>
+              <button>Edytuj ilość ryb w akwarium</button>
+            </Link>
+          </div>
+          
           <h2>Twoje wyposażenie: </h2>
           <EqList eq={currentEquipment} loading={loading}/>
           <ReactPaginate
@@ -93,58 +111,83 @@ function FishTankDetails() {
               nextLinkClassName={'next-navigation-button'}
               activeLinkClassName={'active'}
           />
-      <h2>Parametry wody na {fishTank.data_pomiaru}:</h2>
-          <div className='WaterSpecsContainer'>
-            <div className='WaterSpecsContainerInner'>
-              <Table className='WaterSpecsTable'>
-                <tbody>
-                <tr>
-                  <td>Temperatura</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.tempeture}</td>
-                </tr>
-                <tr>
-                  <td>Twardość wody</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.hardness}</td>
-                </tr>
-                <tr>
-                  <td>ph</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.ph}</td>
-                </tr>
-                <tr>
-                  <td>Amoniak</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.ammonia}</td>
-                </tr>
-                <tr>
-                  <td>Azotyn</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.nitrite}</td>
-                </tr>
-                <tr>
-                  <td>Azotan</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.nitrate}</td>
-                </tr>
-                <tr>
-                  <td>Fosforany</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.phosphates}</td>
-                </tr>
-                <tr>
-                  <td>Wapń</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.calcium}</td>
-                </tr>
-                <tr>
-                  <td>Magnez</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.magnesium}</td>
-                </tr>
-                <tr>
-                  <td>Chlor</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.chlorine}</td>
-                </tr>
-                <tr>
-                  <td>Dwutlenek Węgla</td>
-                  <td>{!fishTank.parametry_wody ? 0:fishTank.parametry_wody.co2}</td>
-                </tr>
-                </tbody>
-              </Table>
-            </div>
+          <div className='EditButton'>
+            <Link to={`/edycjaAkwarium?id=${id}`}>
+              <button>Edytuj wyposażenie</button>
+            </Link>
+          </div>
+
+          {currentWater.map((item) => (
+              <><h2>Parametry wody na {item.date}:</h2>
+              <div className='WaterSpecsContainer'>
+              <div className='WaterSpecsContainerInner'>
+                <Table className='WaterSpecsTable'>
+                  <tbody>
+                    <tr>
+                      <td>Temperatura</td>
+                      <td>{item.temperature}</td>
+                    </tr>
+                    <tr>
+                      <td>Twardość wody</td>
+                      <td>{item.hardness}</td>
+                    </tr>
+                    <tr>
+                      <td>ph</td>
+                      <td>{item.ph}</td>
+                    </tr>
+                    <tr>
+                      <td>Amoniak</td>
+                      <td>{item.ammonia}</td>
+                    </tr>
+                    <tr>
+                      <td>Azotyn</td>
+                      <td>{item.nitrite}</td>
+                    </tr>
+                    <tr>
+                      <td>Azotan</td>
+                      <td>{item.nitrate}</td>
+                    </tr>
+                    <tr>
+                      <td>Fosforany</td>
+                      <td>{item.phosphates}</td>
+                    </tr>
+                    <tr>
+                      <td>Wapń</td>
+                      <td>{item.calcium}</td>
+                    </tr>
+                    <tr>
+                      <td>Magnez</td>
+                      <td>{item.magnesium}</td>
+                    </tr>
+                    <tr>
+                      <td>Chlor</td>
+                      <td>{item.chlorine}</td>
+                    </tr>
+                    <tr>
+                      <td>Dwutlenek Węgla</td>
+                      <td>{item.co2}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            </div></>
+            
+          ))}
+          <ReactPaginate
+              onPageChange={handlePageChange3}
+              pageCount={Math.ceil(waterSpecs.length / waterPerPage)}
+              previousLabel={'Poprzednia Strona'}
+              nextLabel={'Następna Strona'}
+              containerClassName={'pagination'}
+              pageLinkClassName={'page-number'}
+              previousLinkClassName={'prev-navigation-button'}
+              nextLinkClassName={'next-navigation-button'}
+              activeLinkClassName={'active'}
+          />
+          <div className='EditButton'>
+            <Link to={`/dodajwode?id=${id}`}>
+              <button>Dodaj nowy stan wody</button>
+            </Link>
           </div>
       </body>
 );

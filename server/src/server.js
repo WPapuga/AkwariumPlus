@@ -30,7 +30,7 @@ const testDB = async () => {
 const getFishTank= async (id) => {
     try {
         const res = await pool.query(`SELECT * FROM public."Akwarium" WHERE id = ${id}`)
-        console.log(res)
+        // console.log(res)
         return res;
     } catch (error) {
         console.log(error)
@@ -191,35 +191,66 @@ app.get('/getFishTankDetails', async (req, res) => {
             }
         }
         // console.log(fishtank);
-    let tempEquipment = [];
-    if(fishtank.wyposazenie != null) {
+        let tempEquipment = [];
+        if(fishtank.wyposazenie != null) {
             for (let i = 0; i < fishtank.wyposazenie.length; i++) {
                 const eq = await getEquipment(fishtank.wyposazenie[i].id);
                 tempEquipment.push(eq.rows[0]);
             }
         }
-        fishtank.ryby = tempfishes;
-        fishtank.wyposazenie = tempEquipment;
-        console.log(fishtank);
+        pool.query('SELECT * FROM public."woda" WHERE id_akwarium = $1 ORDER BY id DESC', [id], (err, response) => {
+            if (err) {
+                console.log(err);
+                res.send({message: 'Błąd połączenia'});
+            } 
+            console.log(response.rows);
+            temp.rows[0].woda = response.rows;
+            fishtank.ryby = tempfishes;
+            fishtank.wyposazenie = tempEquipment;
+            res.send(temp.rows[0]);
+        });
+        
+        // console.log(fishtank);
 
-        res.send(temp.rows[0]);
 });
+
+app.post('/postWaterSpecs', async (req, res) => {
+    query = 'INSERT INTO public."woda"(id_akwarium, temperature, ph, nitrate, nitrite, hardness, ammonia, chlorine, phosphates, calcium, magnesium, co2, date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)';
+    let values = [req.body.id_akwarium, req.body.temperature, req.body.ph, req.body.nitrate, req.body.nitrite, req.body.hardness, req.body.ammonia, req.body.chlorine, req.body.phosphates, req.body.calcium, req.body.magnesium, req.body.co2, req.body.date];
+    pool.query(query, values, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Błąd podczas dodawania wody'});
+        }
+        res.send({message: 'Sukces'});
+    });
+}); 
 
 app.post('/postFishTank',async (req, res) => {
     try {
         // Odczytanie danych z ciała żądania
-        const { name, width, height, depth, water, fishes, user_id, date } = req.body;
+        const { name, width, height, depth, fishes, user_id, date } = req.body;
         
-        console.log("dane "+fishes);
         // Wstawienie danych do tabeli Akwarium
         const fishesArray = JSON.parse(fishes);
-        const query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, data_pomiaru, user_id, parametry_wody) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-        const values = [name, width, height, depth, (width*height*depth)/1000, date, fishesArray, date, user_id, water];
-        console.log(values);
-        await pool.query(query, values);
-
-        // Zwrócenie potwierdzenia dodania akwarium
-        res.send({message: 'Sukces'})
+        let query = 'INSERT INTO public."Akwarium"(nazwa, dlugosc_cm, szerokosc_cm, wysokosc_cm, pojemnosc_litr, data_zalozenia, ryby, data_pomiaru, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id';
+        let values = [name, width, height, depth, (width*height*depth)/1000, date, fishesArray, date, user_id];
+        await pool.query(query, values, (err, response) => {
+            if (err) {
+                console.log(err);
+                res.send({message: 'Błąd podczas dodawania akwarium'});
+            }
+            let insertedId = response.rows[0].id;
+            query = 'INSERT INTO public."woda"(id_akwarium, temperature, ph, nitrate, nitrite, hardness, ammonia, chlorine, phosphates, calcium, magnesium, co2, date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)';
+            let values = [insertedId, req.body.temperature, req.body.ph, req.body.nitrate, req.body.nitrite, req.body.hardness, req.body.ammonia, req.body.chlorine, req.body.phosphates, req.body.calcium, req.body.magnesium, req.body.co2, date];
+            pool.query(query, values, (err, response) => {
+                if (err) {
+                    console.log(err);
+                    res.send({message: 'Błąd podczas dodawania wody'});
+                }
+                res.send({message: 'Sukces'});
+            });
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Wystąpił błąd podczas dodawania akwarium' });
