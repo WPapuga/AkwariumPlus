@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import './SignIn.css'
 
 
@@ -28,6 +29,7 @@ export default function SignIn() {
             email,
             password
         });
+        console.log(res.message);
         setLoginStatus(res.message);
         if(res.message === "Sukces"){
             sessionStorage.setItem("isLogged", true);
@@ -36,8 +38,8 @@ export default function SignIn() {
             navigate('/konto', { replace: true });
             window.location.reload(false);
         } else {
+            toast.error(res.message);
             sessionStorage.setItem("isLogged", false);
-
         }
     }
     return (
