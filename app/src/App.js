@@ -13,6 +13,7 @@ import FishTankDetails from "./pages/FishTankDetails";
 import FishTankCreate from "./pages/FishTankCreate";
 import FishTankEdit from "./pages/FishTankEdit";
 import EditWater from "./pages/EditWater";
+import EditFish from "./pages/EditFish";
 import { Route, Routes } from "react-router-dom";
 
 
@@ -33,6 +34,8 @@ function App() {
         <Route path="/edycjaAkwarium" element={ <FishTankEdit/> } />
         <Route path="/tworzenie" element={ <FishTankCreate/> } />
         <Route path="/dodajwode" element={ <EditWater/> } />
+        <Route path="/dodajryby" element={ <EditFish/> } />
+
 
 
       </Routes>

@@ -116,11 +116,16 @@ app.post('/login', async (req, res) => {
             console.log(err);
             res.send({message: 'Błąd połączenia'});
         } else {
-            if (response.rows.length === 1)
-            {
-                if(bcrypt.compareSync(password, response.rows[0].password))
-                    res.send({message: 'Sukces',id: response.rows[0].id});}
-            else res.send({message: 'Zła kombinacja email/hasło'});
+            console.log(response.rows);
+            if (response.rows.length === 1) {
+                if(bcrypt.compareSync(password, response.rows[0].password)) {
+                    res.send({message: 'Sukces',id: response.rows[0].id});
+                } else {
+                    res.send({message: 'Zła kombinacja email/hasło'});
+                }
+            } else {
+                res.send({message: 'Błąd'});
+            }
         }
     });
 });
@@ -289,6 +294,43 @@ app.put('/akwarium/:id/wyposazenie', async (req, res) => {
 //     res.status(500).json({ error: 'Wystąpił błąd podczas pobierania wyposażenia.' });
 // }
 // });
+
+app.get('/getFishFromFishTank', async (req, res) => {
+    const id = req.query.id;
+    const query = 'SELECT ryby FROM public."Akwarium" WHERE id = $1';
+    pool.query(query, [id], (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Błąd podczas pobierania ryb'});
+        }
+        // // const rybyJSON = response.rows[0].ryby;
+        // const rybyArray = response.rows[0].ryby
+        // const rybyJsonArray = []
+        // for (let i = 0; i < rybyArray.length; i++) {
+        //     const ryba = rybyArray[i];
+        //     rybyArray[i].id = i;
+
+        // }
+        // console.log(response.rows[0].ryby[0]);
+        // // const ryby = JSON.parse(rybyJSON);
+        // // console.log(ryby);
+        res.send(response.rows[0].ryby);
+    });
+})
+
+app.post('/postFish', async (req, res) => {
+    const { id, fishes} = req.body;
+    const fishesArray = JSON.parse(fishes);
+    const query = 'UPDATE public."Akwarium" SET ryby = $1 WHERE id = $2';
+    const values = [fishesArray, id];
+    pool.query(query, values, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Błąd podczas dodawania ryb'});
+        }
+        res.send({message: 'Sukces'});
+    });
+})
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)

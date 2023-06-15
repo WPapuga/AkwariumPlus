@@ -93,7 +93,7 @@ function FishTankDetails() {
               activeLinkClassName={'active'}
           />
           <div className='EditButton'>
-            <Link to={`/edycjaAkwarium?id=${id}`}>
+            <Link to={`/dodajryby?id=${id}`}>
               <button>Edytuj ilość ryb w akwarium</button>
             </Link>
           </div>
