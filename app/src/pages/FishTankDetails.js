@@ -37,6 +37,7 @@ function FishTankDetails() {
           setFishList(data.ryby)
           console.log(data.ryby)
           setParameters(data.parametry_wody);
+          console.log(data.wyposazenie)
           setEquipment(data.wyposazenie);
           setWaterSpecs(data.woda);
           setLoading(false);

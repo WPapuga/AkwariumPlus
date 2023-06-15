@@ -2,32 +2,20 @@ import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
 import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Table from 'react-bootstrap/Table'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import './FishTankEdit.css'
 
-async function setEquipmentLists(id_akwarium,wyposazenie) {
-  console.log(id_akwarium);
-  const sen = []
-  wyposazenie.map((wypos)=>{
-    sen.push({
-      id: wypos.id,
-      ilosc: wypos.quantity
-    });
-  });
-  console.log(sen);
-  return fetch(`http://localhost:3030/akwarium/${id_akwarium}/wyposazenie`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(sen)
-  })
-    .then(response => response.json())
-    .catch(error => {
-      console.error(error);
-    });
+async function postEq(details) {
+  console.log(details);
+  return fetch("http://localhost:3030/postEq", {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(details)
+}).then(data => data.json())
 }
 
 async function getEquipmentLists(id_akwarium) {
@@ -70,14 +58,33 @@ function FishTankCreate() {
         .then(response => response.json())
         .then(data => {
           setEquipmentList(data);
+          console.log(data);
           setLoading(false);
         });
-      //   fetch(`http://localhost:3030/akwarium/${id}/wyposazenie`)
-      // .then(response => response.json())
-      // .then(data => {
-      //   console.log(data);
-      // });
   }, []);
+
+  useEffect(() => {
+    console.log(equipmentList);
+    setLoading(true);
+    fetch('http://localhost:3030/getEqFromFishTank?id='+id)
+    .then(res => res.json())
+    .then(data => {
+      let list = []
+      for(let i = 0; i < data.length; i++) {
+        let selected = equipmentList.find((obj) => obj.id === data[i].id);
+        let newEquipment = {
+          id: data[i].id,
+          nazwa: selected.nazwa,
+          obraz: selected.obraz,
+          quantity: data[i].ilosc
+        }
+        list.push(newEquipment)
+      }
+      setRightEquipmentList(list);
+      setLoading(false);
+    })
+  }, [equipmentList]);
+
   const indexOfLastEquipment = currentPage * equipmentPerPage;
   const indexOfFirstEquipment = indexOfLastEquipment - equipmentPerPage;
   const currentEquipment = equipmentList.slice(indexOfFirstEquipment, indexOfLastEquipment);
@@ -149,21 +156,31 @@ function FishTankCreate() {
     }
     toggleDeletePopUp();
   };
+
   const createEquipmentList = async e => {
     e.preventDefault();
-    const res = await setEquipmentLists(id,rightEquipmentList);
-    if(res.message == "Pole \"wyposazenie\" zostało zaktualizowane."){
-      alert("Edytowano wyposażenie")
-      navigate('/konto', { replace: true });
-      window.location.reload(false);
+    const eqTrans = [];
+    rightEquipmentList.map((eq)=>{
+      eqTrans.push({
+            id: eq.id,
+            ilosc: eq.quantity
+        })
+    })
+    const res = await postEq({
+      id: id,
+      eq: JSON.stringify(eqTrans)
+    });
+    if(res.message == "Sukces"){
+      toast.success('Zaktualiowano akwarium');
+      setTimeout(function(){ navigate(`/szczegolyAkwarium?id=${id}`, { replace: true }); }, 3000);
     } else {
-      alert("Błąd")
+      toast.error('Błąd');
     }
-} 
+}
 
   return (
     <body>
-      <h1>2. Dobierz wyposażenie do swojego akwarium</h1>
+      <h1>Dobierz wyposażenie do swojego akwarium</h1>
       {isPopupVisible && (
         <div className="popup">
           <h2>Ile wyposażenia chcesz dodać:</h2>

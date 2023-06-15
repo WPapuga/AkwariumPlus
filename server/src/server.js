@@ -61,9 +61,10 @@ const getAllEquipment= async () => {
         console.log(error)
     }
 }
-const getEquipment= async (id) => {
+const getEquipment= async (id, ilosc) => {
     try {
-        const res = await pool.query(`SELECT * FROM public."Wyposazenie" WHERE id = ${id}`)
+        var res = await pool.query(`SELECT * FROM public."Wyposazenie" WHERE id = ${id}`)
+        res.rows[0].ilosc = ilosc;
         return res;
     } catch (error) {
         console.log(error)
@@ -191,7 +192,7 @@ app.get('/getFishTankDetails', async (req, res) => {
             for (let i = 0; i < fishtank.ryby.length; i++) {
                     let fish = await getFish(fishtank.ryby[i].idgatunku);
                     fish.rows[0].quantity = fishtank.ryby[i].ilosc;
-                    console.log(fish.rows[0])
+                    // console.log(fish.rows[0])
                     tempfishes.push(fish.rows[0]);
             }
         }
@@ -199,7 +200,8 @@ app.get('/getFishTankDetails', async (req, res) => {
         let tempEquipment = [];
         if(fishtank.wyposazenie != null) {
             for (let i = 0; i < fishtank.wyposazenie.length; i++) {
-                const eq = await getEquipment(fishtank.wyposazenie[i].id);
+                const eq = await getEquipment(fishtank.wyposazenie[i].id, fishtank.wyposazenie[i].ilosc);
+                console.log(eq.rows[0]);
                 tempEquipment.push(eq.rows[0]);
             }
         }
@@ -208,7 +210,7 @@ app.get('/getFishTankDetails', async (req, res) => {
                 console.log(err);
                 res.send({message: 'Błąd połączenia'});
             } 
-            console.log(response.rows);
+            // console.log(response.rows);
             temp.rows[0].woda = response.rows;
             fishtank.ryby = tempfishes;
             fishtank.wyposazenie = tempEquipment;
@@ -303,18 +305,20 @@ app.get('/getFishFromFishTank', async (req, res) => {
             console.log(err);
             res.send({message: 'Błąd podczas pobierania ryb'});
         }
-        // // const rybyJSON = response.rows[0].ryby;
-        // const rybyArray = response.rows[0].ryby
-        // const rybyJsonArray = []
-        // for (let i = 0; i < rybyArray.length; i++) {
-        //     const ryba = rybyArray[i];
-        //     rybyArray[i].id = i;
-
-        // }
-        // console.log(response.rows[0].ryby[0]);
-        // // const ryby = JSON.parse(rybyJSON);
-        // // console.log(ryby);
         res.send(response.rows[0].ryby);
+    });
+})
+
+app.get('/getEqFromFishTank', async (req, res) => {
+    const id = req.query.id;
+    const query = 'SELECT wyposazenie FROM public."Akwarium" WHERE id = $1';
+    pool.query(query, [id], (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Błąd podczas pobierania wposazenia'});
+        }
+        console.log(response.rows[0].wyposazenie);
+        res.send(response.rows[0].wyposazenie);
     });
 })
 
@@ -327,6 +331,20 @@ app.post('/postFish', async (req, res) => {
         if (err) {
             console.log(err);
             res.send({message: 'Błąd podczas dodawania ryb'});
+        }
+        res.send({message: 'Sukces'});
+    });
+})
+
+app.post('/postEq', async (req, res) => {
+    const { id, eq} = req.body;
+    const equpimentArray = JSON.parse(eq);
+    const query = 'UPDATE public."Akwarium" SET wyposazenie = $1 WHERE id = $2';
+    const values = [equpimentArray, id];
+    pool.query(query, values, (err, response) => {
+        if (err) {
+            console.log(err);
+            res.send({message: 'Błąd podczas dodawania wyposażenia'});
         }
         res.send({message: 'Sukces'});
     });
